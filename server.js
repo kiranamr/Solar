@@ -25,7 +25,7 @@ app.use('/api',appRoutes);
 
 
 
-mongoose.connect('mongodb://localhost:27017/SolarDataDb',function(err)
+mongoose.connect('mongodb://admin:admin@solar-shard-00-00-xxtic.mongodb.net:27017,solar-shard-00-01-xxtic.mongodb.net:27017,solar-shard-00-02-xxtic.mongodb.net:27017/test?ssl=true&replicaSet=Solar-shard-0&authSource=admin',function(err)
 	{
 		if(err)
 		{
