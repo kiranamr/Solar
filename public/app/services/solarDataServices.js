@@ -6,13 +6,13 @@ angular.module('solarDataServices',[])
 
 						solardataFactory.create=function(addSolarData)
 						{
-							return $http.post('/api/solarsdatain',addSolarData);
+							return $http.post('/api/solarsUserdata',addSolarData);
 
 						};	
 
 					    solardataFactory.getUsers=function()
 						 {
-						 		return $http.get('/api/solarsdatain');
+						 		return $http.get('/api/solarsUserdata');
 						 		
 						 };
 						 	 
