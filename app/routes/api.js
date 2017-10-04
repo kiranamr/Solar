@@ -94,7 +94,7 @@ module.exports=function(router)
 	
 					
 					var chartData;
-						router.post('/solarin',function(req,res)
+						router.post('/solarsUser',function(req,res)
 						{    var solartable=new Solar();
 							//var solardatatable=new models.SolarData();
 							solartable.S_id=req.body.S_id;
@@ -121,14 +121,31 @@ module.exports=function(router)
 							else
 							{
 								solartable.save(function(err){
-																if (err) throw err;
-															    return res.json({success:true, message:'Solar created !'});
+																 if(err)
+						{
+				               if(err.code == 11000)
+				               {
+				               	console.log(err.errmsg);
+				               	return	res.json({success:false, message:'customer id already exists  !!!'});
+				               }
+				
+							
+					
+			
+			
+		 				}
+		 				else
+		 				{
+		 					 return	res.json({success:true, message:'Solar created !'});
+		 				}
+					 
+
 						
 						    								});
 							}
 							
 						});
-						router.post('/solarsdatain',function(req,res)
+						router.post('/solarsUserdata',function(req,res)
 						{   //var solartable=new models.Solar();
 							var solardatatable=new SolarData();
 							solardatatable.S_id=req.body.S_id;
@@ -179,7 +196,7 @@ module.exports=function(router)
 						});
 
 
-					router.get('/solarsdatain',function(req,res)
+					router.get('/solarsUserdata',function(req,res)
 					{
 							// get all the users
 							console.log('I recived a get request');
@@ -484,7 +501,7 @@ router.get('/downloads', function(req, res)
 							 });
 					});
 
-					router.get('/solarin',function(req,res)
+					router.get('/solarsUser',function(req,res)
 					{
 							// get all the users
 							console.log('I recived a get request');
