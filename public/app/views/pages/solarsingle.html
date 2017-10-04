@@ -1,0 +1,75 @@
+ <div class="row">
+    <div class="col-md-12">
+          <div class="col-md-1">
+               <center>
+                 <br><br><br><br><br><br><br><br><br><br>
+                    <button style="width: 100%;height: 20%"  ng-click="show = 1"><h3>Table</h3></button>
+                      <br><br>
+                    <button style="width: 100%;height: 20%" ng-click="show = 2"><h3>Chart</h3> </button>  
+              </center>
+          </div>
+          <div class="col-md-11">
+            <br>
+            <br>
+                  <div  ng-show="show==1" class="scrollbar" id="Style-default">
+                       <div class="force-overflow">
+                          <br><br><br>       
+                            <div style="overflow-x:auto; " >
+                              <center> 
+                                 <table  >
+                                        <thead>
+                                          <tr >
+                                                 <th>Sl No</th>
+                                                <th>Id</th>
+                                                <th>RTU Connectivity</th>
+                                                <th>RTU Last Connected</th>
+                                                <th>Panel Volt &nbsp  &nbsp (V)</th>
+                                                <th>Panel Amp &nbsp &nbsp(A)</th>
+                                                <th>O/P Volt (V)</th>
+                                                <th>O/P Amp  (A)</th>
+                                                <th>Frequency  (Hz)</th>
+                                                
+                                                <th>O/P Power (KW)</th>
+                                                <th>Speed (rpm)</th>
+                                                <th>Energy (KWh)</th>
+                                                <th>Flow (LPM)</th>
+                                                <th>On Time (Hour)</th>
+                                                <th>Pump Run</th>
+                                                <th>Status/Faults</th>
+                                          </tr>
+                                        </thead>
+
+                                          <tbody>                         
+                                           <tr style="width: 200px"  ng-repeat="solar in solardatas" > 
+                                              <td>{{$index+1}}</td>
+                                              <td>{{solar.S_id}}</td>
+                                              <td>&#10006; </td>
+                                              <td>{{solar.rtuLastConnected}} </td>
+                                              <td>{{solar.panelVolt}} </td>
+                                              <td>{{solar.panelAmp}} </td>
+                                              <td>{{solar.outputVolt}} </td>
+                                              <td>{{solar.outputAmp}} </td>
+                                              <td>{{solar.frequency}} </td>
+                                              <td>{{solar.outputPower}} </td>
+                                              <td>{{solar.speed}} </td>
+                                              <td>{{solar.energy}} </td>
+                                              <td>{{solar.flow}} </td>
+                                              <td>{{solar.onTime}} </td>
+                                              <td><img src="circle.png" width="10" height="10"> </td>
+                                              <td>{{solar.status}} </td>                    
+                                             
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                     </center>
+                                  </div>
+                                </div>
+                            </div>
+                         <br><br>
+            <div  ng-show="show==2"   id="chart-container">Chart will load here!</div>
+        </div>
+      </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div></div>
+

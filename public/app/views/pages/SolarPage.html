@@ -1,0 +1,81 @@
+<div class="row">
+ <div class="col-md-12">
+       <div class="col-md-2"></div>
+        <div class="col-md-8">
+             <br><br><br><br>
+			<div class="jumbotron">
+
+			<form ng-submit="add.addTag(addSolarData);">
+							<label>Customer:</label>
+								<input type="text" name="customer" class="form-control" placeholder="Enter the customer" ng-model="add.addSolarData.customer">
+									<br>
+							<label>RTU Connectivity:</label>
+								<input type="text" name="RtuConnectivity" class="form-control" placeholder="Enter the rtu connectivity" ng-model="add.addSolarData.rtuConnectivity">
+
+									<br>
+							<label>Panel Volt:</label>
+									<input type="text" name="PanelVolt" class="form-control" placeholder="Enter the panel volt" ng-model="add.addSolarData.panelVolt">
+										<br>
+							<label>Panel Amp:</label>
+									<input type="text" name="PanelAmp" class="form-control" placeholder="Enter the panel amp" ng-model="add.addSolarData.panelAmp">
+										<br>
+							<label>Output Volt:</label>
+									<input type="text" name="OutputVolt" class="form-control" placeholder="Enter the output volt" ng-model="add.addSolarData.outputVolt">
+										<br>
+							<label>Output Amp:</label>
+									<input type="text" name="OutputAmp" class="form-control" placeholder="Enter the output amp" ng-model="add.addSolarData.outputAmp">
+										<br>
+							<label>Frequency:</label>
+									<input type="text" name="Frequency" class="form-control" placeholder="Enter the frequency" ng-model="add.addSolarData.frequency">
+										<br>
+							<label>Output Power:</label>
+									<input type="text" name="OutputPower" class="form-control" placeholder="Enter the output power" ng-model="add.addSolarData.outputPower">					<br>
+							<label>Speed:</label>
+									<input type="text" name="Speed" class="form-control" placeholder="Enter the speed" ng-model="add.addSolarData.speed">
+										<br>
+							<label>Energy:</label>
+									<input type="text" name="Energy" class="form-control" placeholder="Enter the energy" ng-model="add.addSolarData.energy">
+										<br>
+							<label>Flow:</label>
+									<input type="text" name="Flow" class="form-control" placeholder="Enter the flow" ng-model="add.addSolarData.flow">
+										<br>
+							<label>On Time:</label>
+									<input type="text" name="OnTime" class="form-control" placeholder="Enter the onTime" ng-model="add.addSolarData.onTime">
+										<br>
+							<label>Pump Run:</label>
+									<input type="text" name="PumpRun" class="form-control" placeholder="Enter the pumpRun" ng-model="add.addSolarData.pumpRun">
+										<br>
+							<label>Status:</label>
+										<input type="text" name="Status" class="form-control" placeholder="Enter the status" ng-model="add.addSolarData.status">		
+							<br><br>
+							<button class="btn btn-primary" type="submit">AddSolar</button>
+			</form>
+            <br>
+       <div class="jumbotron text-center" ng-show="add.loading">
+			<span class="glyphicon glyphicon-repeat spinner"></span>
+			<p>Loading...</p></div>
+			<br>
+		<div class="row show-hide-message" ng-show="add.successMsg ">
+		<div class="alert alert-success">{{ add.successMsg }}</div>
+	
+		</div>
+			<br>
+		<div class="row show-hide-message" ng-show="add.errorMsg">
+			<div class="alert alert-danger">{{ add.errorMsg}}</div>
+
+	
+		</div>
+		</div>
+		</div>
+ <div class="col-md-2"></div>
+ </div>
+ </div>
+<br><br><br><br><br><br>
+
+
+
+ 
+ 
+ 
+
+           

@@ -1,0 +1,5 @@
+"SolarUserId","RTU Connectivity","RTU Last Connected","Panel Volt  (V)","Panel Amp (A)","O/P Volt (V)","O/P Amp","Frequency  (Hz)","O/P Power (KW)","Speed (rpm)","Energy (KWh)","Flow (LPM)","On Time (Hour)","Pump Run","Status/Faults"
+2,"yes","2017-10-03T13:17:30.656Z",350,150,180,160,320,200,120,250,12.18,22,"no",1
+2,"yes","2017-10-03T13:17:51.737Z",350,150,180,160,320,200,120,250,12.18,22,"no",1
+2,"yes","2017-10-03T13:18:17.689Z",350,150,180,160,320,200,120,250,12.18,22,"no",1
+2,"yes","2017-10-03T13:21:13.785Z",30,50,780,960,520,500,720,250,12.14,22,"no",1

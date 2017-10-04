@@ -1,0 +1,67 @@
+<br>
+<br>
+<form ng-submit="Search.SerarchTag(SearchSolarData);">
+	Device Name: <!--<select ng-model="Search.SearchSolarData.selectedId"  ng-options="x.S_id for x in names">
+</select>-->
+<input type="text" ng-model="Search.SearchSolarData.selectedId">
+		   <!-- 	Data Filter: <select ng-model="selectedValues" ng-options="y for y in values">
+</select> 
+   	Data Interval: <select ng-model="selecteInterval" ng-options="z for z in intervals">
+</select> -->
+
+	From Date:<input type="Date" ng-model="Search.SearchSolarData.selectedFromDate">
+	To Date:<input type="date" ng-model="Search.SearchSolarData.selectedToDate">
+	<button class="btn btn-primary" type="submit">Search</button>
+
+</form> 
+<br>
+<br>
+ <div style="overflow-x:auto; " >
+ <br>
+        <center> 
+               <table  >
+                        <thead>
+                          <tr >
+                                <th>Sl No</th>
+                                <th>Id</th>
+                                <th>RTU Connectivity</th>
+                                <th>RTU Last Connected</th>
+                                <th>Panel Volt &nbsp  &nbsp (V)</th>
+                                <th>Panel Amp &nbsp &nbsp(A)</th>
+                                <th>O/P Volt (V)</th>
+                                <th>O/P Amp  (A)</th>
+                                <th>Frequency  (Hz)</th>
+                                
+                                <th>O/P Power (KW)</th>
+                                <th>Speed (rpm)</th>
+                                <th>Energy (KWh)</th>
+                                <th>Flow (LPM)</th>
+                                <th>On Time (Hour)</th>
+                                <th>Pump Run</th>
+                                <th>Status/Faults</th>
+                          </tr>
+                        </thead>
+                        <tbody>                        
+                          <tr style="width: 200px"  ng-repeat="solar in solardatas " > 
+                                <td>{{$index+1}}</td>
+                                <td>{{solar.S_id}}</td>
+                                <td>&#10006; </td>
+                                <td>{{solar.rtuLastConnected}} </td>
+                                <td>{{solar.panelVolt}} </td>
+                                <td>{{solar.panelAmp}} </td>
+                                <td>{{solar.outputVolt}} </td>
+                                <td>{{solar.outputAmp}} </td>
+                                <td>{{solar.frequency}} </td>
+                                <td>{{solar.outputPower}} </td>
+                                <td>{{solar.speed}} </td>
+                                <td>{{solar.energy}} </td>
+                                <td>{{solar.flow}} </td>
+                                <td>{{solar.onTime}} </td>
+                                <td><img src="circle.png" width="10" height="10"> </td>
+                                <td>{{solar.status}} </td>         
+                            </tr>
+                        </tbody>
+                 </table>
+         </center>
+</div>
+<center><h4> Click here to <a href="/api/downloads"><font color="blue">download</font></a></h4></center>

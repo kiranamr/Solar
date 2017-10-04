@@ -1,0 +1,19 @@
+angular.module('userApp',['appRoutes',
+	         			  'userControllers',
+	         			  'userServices',
+	         			  'reportControllers',
+	         			  'ngAnimate',
+	         			  'mainControllers',
+	         			  'authServices',
+	         			  'searchControllers',
+	         			  'solarControllers',
+	         			  'solarServices',
+	         			  'solardataControllers',
+	         			  'solarDataServices',
+	         			  'dashboardControllers'
+	         			  ])
+.config(function($httpProvider)
+{
+	$httpProvider.interceptors.push('AuthInterceptors');
+
+});

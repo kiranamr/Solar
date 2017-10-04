@@ -1,0 +1,75 @@
+<br>
+<br>
+
+
+<h1>Search by perticular ids</h1>
+ <div class="row">
+             <div class="col-md-12">
+                            <div class="col-md-4">  </div>
+                           <div class="col-md-4" >
+
+                          
+                                 <form  >         
+                                          <br>
+                                          <label>Enter the Solar &nbsp :</label>
+
+                                            <input type="text" style="width: 210px;height: 30px;" ng-click='SearchAll.addTagSerachAll(addSearchAll);'  ng-model="SearchAll.addSearchAll.checkindatesearch" class="form-group"   >
+                                           
+                                            <br>                        
+                                </form>
+                           </div>
+                           <div class="col-md-4"> </div>
+             </div>
+  </div>        
+  <br><br>
+  <div style="overflow-x:auto; " >
+        <center> 
+               <table  >
+                        <thead>
+                          <tr >
+                                <th>Sl No</th>
+                                <th>Id</th>
+                                <th>RTU Connectivity</th>
+                                <th>RTU Last Connected</th>
+                                <th>Panel Volt &nbsp  &nbsp (V)</th>
+                                <th>Panel Amp &nbsp &nbsp(A)</th>
+                                <th>O/P Volt (V)</th>
+                                <th>O/P Amp  (A)</th>
+                                <th>Frequency  (Hz)</th>
+                                
+                                <th>O/P Power (KW)</th>
+                                <th>Speed (rpm)</th>
+                                <th>Energy (KWh)</th>
+                                <th>Flow (LPM)</th>
+                                <th>On Time (Hour)</th>
+                                <th>Pump Run</th>
+                                <th>Status/Faults</th>
+                          </tr>
+                        </thead>
+                        <tbody>                        
+                          <tr style="width: 200px"  ng-repeat="solar in solardatas " > 
+                                <td>{{$index+1}}</td>
+                                <td>{{solar.S_id}}</td>
+                                <td>&#10006; </td>
+                                <td>{{solar.rtuLastConnected}} </td>
+                                <td>{{solar.panelVolt}} </td>
+                                <td>{{solar.panelAmp}} </td>
+                                <td>{{solar.outputVolt}} </td>
+                                <td>{{solar.outputAmp}} </td>
+                                <td>{{solar.frequency}} </td>
+                                <td>{{solar.outputPower}} </td>
+                                <td>{{solar.speed}} </td>
+                                <td>{{solar.energy}} </td>
+                                <td>{{solar.flow}} </td>
+                                <td>{{solar.onTime}} </td>
+                                <td><img src="circle.png" width="10" height="10"> </td>
+                                <td>{{solar.status}} </td>         
+                            </tr>
+                        </tbody>
+                 </table>
+         </center>
+</div>
+<br>
+<br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br>
+ 
