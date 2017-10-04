@@ -68,7 +68,9 @@
                                          <span class="icon-bar"></span>
                                          <span class="icon-bar"></span>
                                   </button>
-                                          <a title="Home" href="/home" class="navbar-brand" title="Categories"><img src="Icon_Solar.jpg"   style=" width:110px;height:70px; margin-top:-30px; margin-left: -10px; ">
+                                          <a title="Home" href="/home" ng-show="!main.isLoggedIn" class="navbar-brand" title="Categories"><img src="sloarsystem.png"   style=" width:110px;height:70px; margin-top:-30px; margin-left: -10px; ">
+                                          </a> 
+                                           <a title="Home" href="/dashboard" ng-show="main.isLoggedIn" class="navbar-brand" title="Categories"><img src="sloarsystem.png"   style=" width:110px;height:70px; margin-top:-30px; margin-left: -10px; ">
                                           </a> 
                                             
                               </div>
@@ -87,8 +89,10 @@
                                                
                                             
                                   </ul>
-                                  <ul class="nav navbar-nav navbar-right custom-menu"  >
-                                            <li ng-show="main.isLoggedIn" ><b><h5> welcome {{main.userfirstname}}</h5></b> </li>
+                                
+                                  
+                                  <ul class="nav navbar-nav navbar-right "  >
+                                            <li style="margin-right: -150px" ng-show="main.isLoggedIn" >welcome {{main.userfirstname}} ! </li>
                              </div>
                           </div>
                       </div>
