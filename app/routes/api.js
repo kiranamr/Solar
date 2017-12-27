@@ -16,38 +16,36 @@ var fs1 = require('fs');
 
 //var mongoXlsx = require('mongo-xlsx');
 var fieldNames = [  'SolarUserId',
+					'Customer',
 					 'RTU Connectivity' ,
 					 'RTU Last Connected',
-					 'Panel Volt  (V)',
-					 'Panel Amp (A)',
+					 'DC Volt  (V)',
 					 'O/P Volt (V)',
-					 'O/P Amp',
-					 'Frequency  (Hz)',
+					 'O/P Ampere',
 					 'O/P Power (KW)',
-					 'Speed (rpm)',
-					 'Energy (KWh)',
-					 'Flow (LPM)',
-					 'On Time (Hour)',
-					 'Pump Run',
-					 'Status/Faults'
+					 'Total Power(KW)',
+					 'VFD Speed (rpm)',
+					 'Output Frequency (Hz)',
+					 'Flowrate (LPM)',
+					 'Pump Run Hour',
+					 'VFD Status/Faults'
 					 ];
 
 //var mongoXlsx = require('mongo-xlsx');
 var fields = [  'S_id',
+				'Customer',
 				'rtuConnectivity',
 				'rtuLastConnected',
-				'panelVolt',
-				'panelAmp',
+				'dcVolt',
 				'outputVolt', 
-				'outputAmp', 
-				'frequency',
+				'outputAmpere', 
 				'outputPower',
-				'speed',
-				'energy',
-				'flow',
-				'onTime',
-				'pumpRun',
-				'status'
+				'totalPower',
+				'vfdSpeed',
+				'outputFrequency',
+				'flowRate',
+				'pumprunHour',
+				'vfdStatus'
 				];
 
 var fs = require('file-system');
@@ -91,7 +89,6 @@ var cd=CheckOutDate.getDate();
 
 module.exports=function(router)
 {
-	
 					
 					var chartData;
 						router.post('/solarsUser',function(req,res)
@@ -101,82 +98,64 @@ module.exports=function(router)
 							solartable.customer=req.body.customer;
 							solartable.rtuConnectivity=req.body.rtuConnectivity;
 							solartable.rtuLastConnected=new Date().toISOString();
-							solartable.panelVolt=req.body.panelVolt;
-							solartable.panelAmp=req.body.panelAmp;
+							solartable.dcVolt=req.body.dcVolt;
 							solartable.outputVolt=req.body.outputVolt;
-							solartable.outputAmp=req.body.outputAmp;
-							solartable.frequency=req.body.frequency;
+							solartable.outputAmpere=req.body.outputAmpere;
 							solartable.outputPower=req.body.outputPower;
-							solartable.speed=req.body.speed;
-							solartable.energy=req.body.energy;
-							solartable.flow=req.body.flow;
-							solartable.onTime=req.body.onTime;
-							solartable.pumpRun=req.body.pumpRun;
-							solartable.status=req.body.status;
-							if(req.body.customer==null||req.body.customer==''||req.body.rtuConnectivity==null||req.body.rtuConnectivity==''||req.body.panelVolt==null||req.body.panelVolt==''||req.body.panelAmp==null||req.body.panelAmp==''||req.body.outputVolt==null||req.body.outputVolt==''||req.body.outputAmp==null||req.body.outputAmp==''||req.body.frequency==null||req.body.frequency==''||req.body.outputPower==null||req.body.outputPower==''||req.body.speed==null||req.body.speed==''||req.body.energy==null||req.body.energy==''||req.body.flow==null||req.body.flow==''||req.body.onTime==null||req.body.onTime==''||req.body.pumpRun==null||req.body.pumpRun==''||req.body.status==null||req.body.status=='')
-							{
-								res.json({success:false,message:'Ensure all fields were provided'});
-
-							}
-							else
-							{
-								solartable.save(function(err){
-																 if(err)
-						{
-				               if(err.code == 11000)
-				               {
-				               	console.log(err.errmsg);
-				               	return	res.json({success:false, message:'customer id already exists  !!!'});
-				               }
-				
+							solartable.totalPower=req.body.totalPower;
+							solartable.vfdSpeed=req.body.vfdSpeed;
+							solartable.outputFrequency=req.body.outputFrequency;
+							solartable.flowRate=req.body.flowRate;
+							solartable.pumprunHour=req.body.pumprunHour;
+							solartable.vfdStatus=req.body.vfdStatus;
 							
-					
-			
-			
-		 				}
-		 				else
-		 				{
-		 					 return	res.json({success:true, message:'Solar created !'});
-		 				}
-					 
-
-						
-						    								});
-							}
 							
+								solartable.save(function(err)
+								{
+						        if(err)
+						           {
+				               			if(err.code == 11000)
+				               			{
+				               				console.log(err.errmsg);
+				               					return	res.json({success:false, message:'customer id already exists  !!!'});
+				               			}
+		 							}
+		 						else
+		 							{
+		 									 return	res.json({success:true, message:'Solar created !'});
+		 							}
+					 			});						
 						});
 						router.post('/solarsUserdata',function(req,res)
 						{   //var solartable=new models.Solar();
 							var solardatatable=new SolarData();
 							solardatatable.S_id=req.body.S_id;
-							//solardatatable.customer=req.body.customer;
+							solardatatable.Customer=req.body.Customer;
 							solardatatable.rtuConnectivity=req.body.rtuConnectivity;
 							solardatatable.rtuLastConnected=new Date().toISOString();
-							solardatatable.panelVolt=req.body.panelVolt;
-							solardatatable.panelAmp=req.body.panelAmp;
+							solardatatable.dcVolt=req.body.dcVolt;
 							solardatatable.outputVolt=req.body.outputVolt;
-							solardatatable.outputAmp=req.body.outputAmp;
-							solardatatable.frequency=req.body.frequency;
+							solardatatable.outputAmpere=req.body.outputAmpere;
 							solardatatable.outputPower=req.body.outputPower;
-							solardatatable.speed=req.body.speed;
-							solardatatable.energy=req.body.energy;
-							solardatatable.flow=req.body.flow;
-							solardatatable.onTime=req.body.onTime;
-							solardatatable.pumpRun=req.body.pumpRun;
-							solardatatable.status=req.body.status;	
-							if(req.body.rtuConnectivity==null||req.body.rtuConnectivity==''||req.body.panelVolt==null||req.body.panelVolt==''||req.body.panelAmp==null||req.body.panelAmp==''||req.body.outputVolt==null||req.body.outputVolt==''||req.body.outputAmp==null||req.body.outputAmp==''||req.body.frequency==null||req.body.frequency==''||req.body.outputPower==null||req.body.outputPower==''||req.body.speed==null||req.body.speed==''||req.body.energy==null||req.body.energy==''||req.body.flow==null||req.body.flow==''||req.body.onTime==null||req.body.onTime==''||req.body.pumpRun==null||req.body.pumpRun==''||req.body.status==null||req.body.status=='')
+							solardatatable.totalPower=req.body.totalPower;
+							solardatatable.vfdSpeed=req.body.vfdSpeed;
+							solardatatable.outputFrequency=req.body.outputFrequency;
+							solardatatable.flowRate=req.body.flowRate;
+							//solardatatable.onTime=req.body.onTime;
+							solardatatable.pumprunHour=req.body.pumprunHour;
+							solardatatable.vfdStatus=req.body.vfdStatus;
+							if(req.body.S_id==''||req.body.S_id==null||req.body.Customer==''||req.body.Customer==null)	
 							{
-								res.json({success:false,message:'Ensure all fields were provided'});
+								res.json({success:false,message:'Ensure id and customer field should provided!'});
 
 							}
-							else
-							{	
-								Solar.findOne({S_id:req.body.S_id},function(err,solars)
+							else{
+								Solar.findOne({S_id:req.body.S_id,customer:req.body.Customer},function(err,solars)
 								{
 					         		if(err) throw err;
 
 					            		if (!solars) {
-					                    				res.json({ success: false, message: 'No customers was found' }); // Return an error
+					                    				res.json({ success: false, message: 'No customers id or name was found' }); // Return an error
 					                				}
 					                				 else 
 					                			 	{
@@ -188,12 +167,39 @@ module.exports=function(router)
 																			});
 					                				}
 
-								});
+								});	
 
-							
 							}
-							
-						});
+								
+							});
+
+                     router.delete('/manage/:id',function(req,res)
+                     {
+	     						var deleteUser=req.params.id;
+	     							console.log('id is'+deleteUser);
+	     				SolarData.remove({_id:deleteUser},function(err,solardatas)
+	     				{
+	     					if(err) throw err;
+	     					res.json({success:true,message:'Solar data deleted'});
+
+	     				}) ;
+
+	     			}) ;       
+
+	     			  
+	     			  router.delete('/manageemail/:id',function(req,res)
+                     {
+	     						var deleteUsers=req.params.id;
+	     							console.log('id is'+deleteUsers);
+	     				User.remove({_id:deleteUsers},function(err,users)
+	     				{
+	     					if(err) throw err;
+	     					res.json({success:true,message:'User data deleted'});
+
+	     				}) ;
+
+	     			}) ;       
+
 
 
 					router.get('/solarsUserdata',function(req,res)
@@ -311,6 +317,179 @@ module.exports=function(router)
 
 							 
 					});
+					
+					var deleteId='';
+
+					router.post('/deleteById',function(req,res)
+					{           deleteId=(req.body.selectedId);
+							
+								 
+								 console.log("Sid is "+deleteId);
+								  if(deleteId == null||deleteId == '' ){
+								  	res.json({success:false,message:'Ensure id should provided!'});
+								  }
+								  else{
+								  	SolarData.find({"S_id":deleteId},function(err,solardatas)
+																	 {
+							
+							 												  res.json(solardatas);
+							 												  console.log(solardatas);
+								  
+		 
+
+																	 });
+
+								        }
+								  
+					                						  	
+					});
+								 
+							
+								  
+							
+
+							 
+					
+
+
+					     router.delete('/managedelete',function(req,res)
+                     {
+	     					console.log(deleteId);
+	     					
+
+								  	SolarData.findOne({S_id:deleteId},function(err,solardatas)
+									{
+					         			if(err) throw err;
+
+					            		if (!solardatas)
+					            					 {
+					                    				res.json({ success: false, message: 'No customers id was found' }); // Return an error
+					                				}
+					                				else
+					                				{		
+	     												SolarData.remove({S_id:deleteId},function(err,solardatas)
+	     												{
+	     													if(err) throw err;
+	     													res.json(solardatas);
+
+	     												}) ;
+	     											}
+
+	     						}) ;
+	     			 });  
+
+
+var deleteIdsolar='';
+
+					router.post('/deleteByIdsolar',function(req,res)
+					{           deleteIdsolar=(req.body.selectedIds);
+							
+								 
+								 console.log("Sid is "+deleteIdsolar);
+								  if(deleteIdsolar == null||deleteIdsolar == '' ){
+								  	res.json({success:false,message:'Ensure id should provided!'});
+
+
+								  		//alert('Ensure id should provided!');
+
+								  }
+								  else
+								  {
+								  	Solar.findOne({S_id:deleteIdsolar},function(err,solars)
+								{
+					         		if(err) throw err;
+
+					            		if (!solars) {
+					                    				res.json({ success: false, message: 'No customers id was found' }); // Return an error
+					                				}
+					                				else{
+					                					 	Solar.find({"S_id":deleteIdsolar},function(err,solardatas)
+							 									{
+							
+							   										res.json(solardatas);
+							   									console.log(solardatas);
+							  
+											 					});
+					                				}
+								  		 
+								  });
+								}
+							
+								  });
+							
+
+							 
+					
+var deleteIdsolardata='';
+					router.post('/deleteByIdsolardata',function(req,res)
+					{           deleteIdsolar=(req.body.selectedIds);
+							
+								 
+								 console.log("Sid is "+deleteIdsolardata);
+								  if(deleteIdsolardata == null||deleteIdsolardata == '' )
+								  {
+								  	res.json({success:false,message:'Ensure id should provided!'});
+								  //	alert('Ensure id should provided!');
+								  }
+								  else
+								  {
+
+								  	SolarData.findOne({S_id:deleteIdsolardata},function(err,solardatas)
+									{
+					         			if(err) throw err;
+
+					            		if (!solardatas)
+					            					 {
+					                    				res.json({ success: false, message: 'No customers id was found' }); // Return an error
+					                				}
+					                				else
+					                				{
+					                						SolarData.find({"S_id":deleteIdsolardata},function(err,solardatas)
+							      							{
+							
+							   								res.json(solardatas);
+							  							 	console.log(solardatas);
+							  
+		 
+
+							 								});
+					                				}
+ 											  
+								  });
+								}
+							
+				   });
+
+
+
+
+	     			    router.delete('/managedeletesolar',function(req,res)
+                     {
+	     					console.log(deleteIdsolar);
+	     							
+	     				Solar.remove({S_id:deleteIdsolar},function(err,solars)
+	     				{
+	     					if(err) throw err;
+	     					res.json(solars);
+
+	     				}) ;
+
+	     			}) ;    
+
+					     router.delete('/managedeletesolardata',function(req,res)
+                     {
+	     					console.log(deleteIdsolar);
+	     							
+	     				SolarData.remove({S_id:deleteIdsolar},function(err,solardatas)
+	     				{
+	     					if(err) throw err;
+	     					res.json(solardatas);
+
+	     				}) ;
+
+	     			}) ;      
+      
+
 
 					router.get('/SerchByIdAndDate',function(req,res)
 					{
@@ -395,7 +574,7 @@ router.get('/downloads', function(req, res)
 									res.json(solardatas);
 							   });
 					});
-
+                   
 
 					router.get('/viewsolarvalues/:id',function(req,res)
 					{ 
@@ -411,20 +590,12 @@ router.get('/downloads', function(req, res)
 							 	for(index in solardatas)
 							 	{
 					              var doc=solardatas[index];
-					              var Month=doc['frequency'];
+					              var Month=doc['outputFrequency'];
 					              var Volts=doc['outputVolt'];
-					              var Amps=doc['outputAmp'];
-					              var Flow=doc['flow'];
+					              var Amps=doc['outputAmpere'];
+					              var Flow=doc['flowRate'];
 					              var v=""+Flow+""; 
-					              flows.push({"label":v},{
-					                    "vline": "true",
-					                    "lineposition": "0",
-					                    "color": "#FA5858",
-					                    "labelHAlign": "center",
-					                    "labelPosition": "0",
-					                   
-					                    "dashed": "0"
-					                });
+					              flows.push({"label":v});
 					              volts.push({"value":Volts});
 
 					              amps.push({"value":Amps});
@@ -438,41 +609,36 @@ router.get('/downloads', function(req, res)
 							    var dataset = [
 											      {
 											        "seriesname" : "outputVolts",
+											        "renderAs": "line",
 											        "data" : volts
 											      },
 											      {
-											        "seriesname" : "outputAmps",
+											        "seriesname" : "outputAmpere",
+											        "renderAs": "line",
 											        "data": amps
 											      },
 											       {
-											        "seriesname" : "outputcurent",
+											        "seriesname" : "outputFrequency",
+											        "renderAs": "line",
 											        "data": month
 											      }
 											   ];
 								var response = {
 													"chart": 
 													{
-											            "caption": "Solar",
+											    "caption": "Solar",
 											            "subCaption": "solar pump system",
 											            "captionFontSize": "14",
 											            "subcaptionFontSize": "14",
 											            "subcaptionFontBold": "0",
 											            "paletteColors": "#01DF01,#FF0000,#FFFF00",
 											            "bgcolor": "#ffffff",
-											            "showBorder": "1",
-											            "showShadow": "1",
-											            "showCanvasBorder": "0",
-											            "usePlotGradientColor": "0",
-											            "legendBorderAlpha": "0",
-											            "legendShadow": "0",
-											            "showAxisLines": "1",
-											            "showAlternateHGridColor": "0",
-											            "divlineThickness": "1",
-											            "divLineIsDashed": "2",
-											            "divLineDashLen": "1",
-											            "divLineGapLen": "1",
-											            "xAxisName": "Speed",
-											            "showValues": "0"
+											           "showvalues": "0",
+            "compactdatamode": "1",
+        "pixelsperpoint": "0",
+        "linethickness": "1",
+          "tooltipGrayOutColor": "#80bfff",
+          "theme": "zune"
 
 										       		 },
 
@@ -487,7 +653,7 @@ router.get('/downloads', function(req, res)
 							 });
 					});
 
-					
+				
 					router.get('/SearchALLbyId',function(req,res)
 					{
 							console.log('I recieved a get request search All')
