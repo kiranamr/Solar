@@ -5,20 +5,19 @@ var Schema = mongoose.Schema;
 
 var SolarUserSchema=new Schema({
 								S_id:Number,
+								Customer:String,
 								rtuConnectivity:String,
 								rtuLastConnected:String,
-								panelVolt:Number,
-								panelAmp:Number,
+								dcVolt:Number,
 								outputVolt:Number,
-								outputAmp:Number,
-								frequency:Number,
+								outputAmpere:Number,
 								outputPower:Number,
-								speed:Number,
-								energy:Number,
-								flow:Number,
-								onTime:Number,
-								pumpRun:String,
-								status:Number
+								totalPower:Number,
+								vfdSpeed:Number,
+								outputFrequency:Number,
+								flowRate:Number,
+								pumprunHour:String,
+								vfdStatus:String
 							
 							});
 	
