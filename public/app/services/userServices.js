@@ -12,7 +12,19 @@ angular.module('userServices',[])
 			 {
 			 		return $http.get('/api/checkuser');
 			 };
+			 userFactory.getUsers=function()
+					 {
+					 		return $http.get('/api/checkuser');
+					 		
+					 };
+			userFactory.removeUsers=function(id)
+							{
+							console.log('id is' +id);
+          					   return $http.delete('/api/manageemail/'+id);
+							};
 
+  
+						 
 		return userFactory;
 	});
 

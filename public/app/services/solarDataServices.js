@@ -44,7 +44,18 @@ angular.module('solarDataServices',[])
 						 {
 						 		return $http.get('api/viewsolar/'+$routeParams.id);
 						 };
+       						
+       						solardataFactory.removeSolars=function(id)
+							{
+							console.log('id is' +id);
+          					   return $http.delete('/api/manage/'+id);
+							};
 
+							solardataFactory.SerarchTag=function()
+							{
+							console.log('id is' +id);
+          					   return $http.delete('/api/managedelete');
+							};
 						 solardataFactory.getRadioSearchAll=function()
 						 {
 						 		return $http.get('/api/SearchALL');
@@ -65,17 +76,34 @@ angular.module('solarDataServices',[])
 							return $http.post('/api/SerchByIdAndDate',SearchSolarData);
 
 						 };
+						  solardataFactory.SearchAllByIddelete=function(deleteSolarData)
+						 {
+							
+							return $http.post('/api/deleteById',deleteSolarData);
+
+						 };
+						 
+
+
+						 
 						  solardataFactory.getRadio2SearchAll=function()
 						 {
 						 		return $http.get('/api/SerchByIdAndDate');
 						 };
+						  solardataFactory.solarDataDeleteAll=function()
+						 {
+						 		   return $http.delete('/api/managedelete');
+						 };
+						 
+                          solardataFactory.solarDataDeleteAllsolardata=function()
+						 {
+						 		   return $http.delete('/api/managedeletesolardata');
+						 };
+						 solardataFactory.SearchSolarAll=function()
+							{		
+								return $http.get('/api/solarreport');
 
-						 		 solardataFactory.SearchSolarAll=function()
-					{
-						
-						return $http.get('/api/solarreport');
-
-					};
+							};
 
 						 
 						

@@ -23,6 +23,21 @@ angular.module('solarServices',[])
 					return $http.post('/api/CheckSolarAll',addSolarAll);
 
 					};
+					 solarFactory.SearchAllByIddeleteSolar=function(deleteSolarDatas)
+						 {
+							
+							return $http.post('/api/deleteByIdsolar',deleteSolarDatas);
+
+						 };
+						 solarFactory.solarDataDeleteAllSolar=function()
+						 {
+						 		   return $http.delete('/api/managedeletesolar');
+						 };
+						  solarFactory.solarDataDeleteAllSolardata=function()
+						 {
+						 		   return $http.delete('/api/managedeletesolardata');
+						 };
+						
 			return solarFactory;
 
 	}); 
