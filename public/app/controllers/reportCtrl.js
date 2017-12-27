@@ -2,6 +2,7 @@ angular.module('reportControllers',[])
     .controller('reportCtrl',function($http,$location,$timeout,Solar,SolarData,$scope)
     {
     	   var app=this;
+         $scope.show = 1;
          $scope.names = [];
          $scope.values = ["Minute", "Hour", "Day","Week","Month","Year"];
          $scope.intervals = ["01", "02", "05","10","15","30","60"];

@@ -1,4 +1,4 @@
-angular.module('userApp',['appRoutes',
+angular.module('userApp',['appRoutes','ngTable','ui.bootstrap',
 	         			  'userControllers',
 	         			  'userServices',
 	         			  'reportControllers',
@@ -10,10 +10,17 @@ angular.module('userApp',['appRoutes',
 	         			  'solarServices',
 	         			  'solardataControllers',
 	         			  'solarDataServices',
-	         			  'dashboardControllers'
+	         			  'dashboardControllers','aboutControllers'
 	         			  ])
 .config(function($httpProvider)
 {
 	$httpProvider.interceptors.push('AuthInterceptors');
 
+})
+.filter('startFrom',function()
+{
+	return function(data,start)
+	{
+		return data.slice(start);
+	}
 });

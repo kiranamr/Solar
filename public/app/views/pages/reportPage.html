@@ -18,50 +18,55 @@
 <br>
  <div style="overflow-x:auto; " >
  <br>
-        <center> 
-               <table  >
-                        <thead>
-                          <tr >
-                                <th>Sl No</th>
-                                <th>Id</th>
-                                <th>RTU Connectivity</th>
-                                <th>RTU Last Connected</th>
-                                <th>Panel Volt &nbsp  &nbsp (V)</th>
-                                <th>Panel Amp &nbsp &nbsp(A)</th>
-                                <th>O/P Volt (V)</th>
-                                <th>O/P Amp  (A)</th>
-                                <th>Frequency  (Hz)</th>
+         <center> 
+                         
                                 
-                                <th>O/P Power (KW)</th>
-                                <th>Speed (rpm)</th>
-                                <th>Energy (KWh)</th>
-                                <th>Flow (LPM)</th>
-                                <th>On Time (Hour)</th>
-                                <th>Pump Run</th>
-                                <th>Status/Faults</th>
-                          </tr>
-                        </thead>
-                        <tbody>                        
-                          <tr style="width: 200px"  ng-repeat="solar in solardatas " > 
-                                <td>{{$index+1}}</td>
-                                <td>{{solar.S_id}}</td>
-                                <td>&#10006; </td>
-                                <td>{{solar.rtuLastConnected}} </td>
-                                <td>{{solar.panelVolt}} </td>
-                                <td>{{solar.panelAmp}} </td>
-                                <td>{{solar.outputVolt}} </td>
-                                <td>{{solar.outputAmp}} </td>
-                                <td>{{solar.frequency}} </td>
-                                <td>{{solar.outputPower}} </td>
-                                <td>{{solar.speed}} </td>
-                                <td>{{solar.energy}} </td>
-                                <td>{{solar.flow}} </td>
-                                <td>{{solar.onTime}} </td>
-                                <td><img src="circle.png" width="10" height="10"> </td>
-                                <td>{{solar.status}} </td>         
-                            </tr>
-                        </tbody>
-                 </table>
-         </center>
+                                 <table  >
+                                  
+                                        <thead>
+                                          <tr >
+                                                <th>Sl NO</th>
+                                                <th>ID</th>
+                                                <th>CUSTOMER</th>
+                                                <th>RTU CONNECTIVITY</th>
+                                                <th>RTU LAST CONNECTED</th>
+                                                <th>DC VOLT(V)</th>
+                                                <th>O/P VOLT(V)</th>
+                                                <th>O/P AMPERE (A)</th>
+                                                <th>O/P POWER (KW)</th>
+                                                
+                                                <th>TOTAL POWER(KW)</th>
+                                                <th>VFD SPEED(rpm)</th>
+                                                <th>O/P FREQUENCY(Hz)</th>
+                                                <th>FLOW RATE(LPM)</th>
+                                                <th>PUMP RUN HOUR</th>
+                                                <th>VFD STATUS/ FAULT</th>
+                                          </tr>
+                                        </thead>
+
+                                          <tbody>
+                                             
+                                           <tr style="width: 200px"  ng-repeat="solar in solardatas" > 
+                                              <td>{{$index+1}}</td>
+                                              <td>{{solar.S_id}}</td>
+                                              <td>{{solar.Customer}} </td>
+                                              <td>{{solar.rtuConnectivity}} </td>
+                                              <td>{{solar.rtuLastConnected}} </td>
+                                              <td>{{solar.dcVolt}} </td>
+                                              <td>{{solar.outputVolt}} </td>
+                                              <td>{{solar.outputAmpere}} </td>
+                                              <td>{{solar.outputPower}} </td>
+                                              <td>{{solar.totalPower}} </td>
+                                              <td>{{solar.vfdSpeed}} </td>
+                                              <td>{{solar.outputFrequency}} </td>
+                                              <td>{{solar.flowRate}} </td>
+                                              <td>{{solar.pumprunHour}} </td>
+                                             <!-- <td><img src="circle.png" width="10" height="10"> </td>-->
+                                              <td>{{solar.vfdStatus}} </td>                    
+                                             
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                     </center>
 </div>
 <center><h4> Click here to <a href="/api/downloads"><font color="blue">download</font></a></h4></center>

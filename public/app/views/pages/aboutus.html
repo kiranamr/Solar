@@ -15,3 +15,20 @@ The electrical energy from the entire array is controlled, tuned and directed by
 The water thus drawn from ponds, rivers, bore wells or other sources by a solar water pump is pumped to supply water as required. It can be stored in tanks from where it is later channelled to fields or the supply from the pump may be coupled with drip irrigation systems to provide optimised water to fields directly.
 
 </p></h1>
+<table  >
+                <thead>
+                      <tr >
+                            <th>SL NO</th>
+                            <th >Email</th>
+                            <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                             
+                                           <tr style="width: 200px"  ng-repeat="user in users" > 
+                                              <td>{{$index+1}}</td>
+                                              <td>{{user.email}}</td>
+                                              <td><a href="#"><button type="button" ng-click="about.removeUser(user._id);" class="btn btn-danger" >Delete</button></a></td>
+                                          </tr>
+                                      </tbody>
+                    </table>

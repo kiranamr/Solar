@@ -8,7 +8,9 @@ angular.module('appRoutes',['ngRoute']).config(function($routeProvider,$location
 								})
 
 					.when('/aboutus',{
-										templateUrl:'app/views/pages/aboutus.html'
+										templateUrl:'app/views/pages/aboutus.html',
+										controller:'aboutCtrl',
+										controllerAs:'about'
 									})
 
 					.when('/view',{
