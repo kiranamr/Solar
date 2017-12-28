@@ -217,7 +217,7 @@ router.delete('/manageUsersData/:id',function(req,res)
                      {
 	     						var deleteUsers=req.params.id;
 	     							console.log('id is'+deleteUsers);
-	     				User.remove({_id:deleteUsers},function(err,users)
+	     				User.remove({email:deleteUsers},function(err,users)
 	     				{
 	     					if(err) throw err;
 	     					res.json({success:true,message:'User data deleted'});
