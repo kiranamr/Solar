@@ -46,8 +46,8 @@
 
                                           <tbody>
                                              
-                                           <tr style="width: 200px"  ng-repeat="solar in solardatas" > 
-                                              <td>{{$index+1}}</td>
+                                           <tr style="width: 200px"  ng-repeat="solar in solardatas| startFrom:(currentPage-1)*pageSize | limitTo:pageSize" > 
+                                              <td>{{$index +1+(currentPage-1) * pageSize }}</td>
                                               <td>{{solar.S_id}}</td>
                                               <td>{{solar.Customer}} </td>
                                               <td>{{solar.rtuConnectivity}} </td>
@@ -68,6 +68,10 @@
                                           </tbody>
 
                                       </table>
+                                      <br>
+                                       <center><uib-pagination class="pagination" max-size="10"  
+      boundary-links="true" direction-link="true" total-items="solardatas.length" ng-model="currentPage" items-per-page="pageSize"></uib-pagination>
+                               </center> 
                                       <br>
                                       <center><h4> Click here to <a href="/api/downloads"><font color="blue">download</font></a></h4></center>
                                     </div>
