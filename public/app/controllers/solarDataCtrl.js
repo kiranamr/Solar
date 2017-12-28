@@ -54,9 +54,11 @@ $scope.currentPage=1;
 
      app.removeSolar=function(id){ 
           console.log('id is'+id);
+           if (confirm('Are you sure you want to delete this?')) {
           SolarData.removeSolars(id).then(function(data){
             if(data.data.success)
             {
+              app.successMsg=alert(data.data.message);
               getSolars();
             }
             else
@@ -65,6 +67,7 @@ $scope.currentPage=1;
             }
           });
         };
+      };
   
      SolarData.getSolarsAll().then(function(data) 
      {

@@ -285,7 +285,11 @@ table {width:100%;}
   background-color: white;
 }
 
-
+.pagination {
+    height: 36px;
+    margin: 18px 0;
+    color: blue;
+}
 
 }
 .dropdown-menu

@@ -37,6 +37,16 @@ angular.module('solarServices',[])
 						 {
 						 		   return $http.delete('/api/managedeletesolardata');
 						 };
+						 solarFactory.removeSolarUsers=function(id)
+							{
+							console.log('id is' +id);
+          					   return $http.delete('/api/manageUsers/'+id);
+							};
+							solarFactory.removeSolarUserDatas=function(id)
+							{
+							console.log('id is' +id);
+          					   return $http.delete('/api/manageUsersData/'+id);
+							};
 						
 			return solarFactory;
 

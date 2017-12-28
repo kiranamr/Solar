@@ -3,15 +3,18 @@
     <div class="force-overflow">
                   
 <br>
-       <form ng-submit="SolarAll.SerarchTags(deleteSolarDatas);">
-                  Enter id to delete (Which will delete both solardatas and solarusers): 
-                         <input type="text" ng-model="SolarAll.deleteSolarDatas.selectedIds" required>
        
-                        <button class="btn btn-primary" type="submit">Delete</button>
-
-                </form> 
     <div style="overflow-x:auto; " >
      <center> 
+      <div ng-show="solars.length !=0">
+        <form  novalidate>
+                  Enter id to delete (Which will delete both solardatas and solarusers): 
+                         <input type="text" ng-model="SolarAll.deleteSolarDatas.selectedIds"  required>
+       
+                        <button class="btn btn-primary"   ng-click="SolarAll.SerarchTags(deleteSolarDatas)" ng-really-message="Are you sure?" type="submit">Delete</button>
+
+                </form> 
+                <br>
            <table  >
                 <thead>
                       <tr >
@@ -32,6 +35,7 @@
                             <th>FLOW RATE(LPM)</th>
                             <th>PUMP RUN HOUR</th>
                             <th>VFD STATUS/ FAULT</th>
+                            <th>ACTION</th>
                             
                       </tr>
                 </thead>
@@ -56,11 +60,16 @@
                                               <td>{{solar.flowRate}} </td>
                                               <td>{{solar.pumprunHour}} </td>
                                              <!-- <td><img src="circle.png" width="10" height="10"> </td>-->
-                                              <td>{{solar.vfdStatus}} </td>      
+                                              <td>{{solar.vfdStatus}} </td>
+                                               <td><a href="#"><button type="button" ng-click="SolarAll.removeSolarUser(solar.S_id);" class="btn btn-danger" >Delete</button></a></td>       
                    
                     </tr>
             </tbody>
         </table>
+      </div>
+        <div ng-show="solars.length ==0">
+ <h3>No data to display.</h3> 
+</div>
     </center>
 </div>
 

@@ -186,6 +186,32 @@ module.exports=function(router)
 
 	     			}) ;       
 
+
+router.delete('/manageUsers/:id',function(req,res)
+                     {
+	     						var deleteUser=req.params.id;
+	     							console.log('id is'+deleteUser);
+	     				Solar.remove({S_id:deleteUser},function(err,solars)
+	     				{
+	     					if(err) throw err;
+	     					res.json({success:true,message:'Solar data and Solar userdata deleted'});
+
+	     				}) ;
+
+	     			}) ;  
+
+router.delete('/manageUsersData/:id',function(req,res)
+                     {
+	     						var deleteUser=req.params.id;
+	     							console.log('id is'+deleteUser);
+	     				SolarData.remove({S_id:deleteUser},function(err,solardatas)
+	     				{
+	     					if(err) throw err;
+	     					res.json({success:true,message:'Solar data deleted'});
+
+	     				}) ;
+
+	     			}) ;
 	     			  
 	     			  router.delete('/manageemail/:id',function(req,res)
                      {

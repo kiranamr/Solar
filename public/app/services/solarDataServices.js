@@ -34,7 +34,11 @@ angular.module('solarDataServices',[])
 							return $http.post('/api/CheckSearchAll',addSearchAll);
 
 						 };
-												
+								solardataFactory.removeSolarUserDatas=function(id)
+							{
+							console.log('id is' +id);
+          					   return $http.delete('/api/manageUsersData/'+id);
+							};				
 						 solardataFactory.getSolarsAll=function()
 						 {
 						 		return $http.get('api/viewsolarvalues/'+$routeParams.id);

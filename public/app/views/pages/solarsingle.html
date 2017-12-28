@@ -9,15 +9,9 @@
               </center>
           </div>
           <div class="col-md-11">
-            <br><center>
-               <form ng-submit="SearchAll.SerarchTag(deleteSolarData);">
-                   S id: 
-                         <input type="text" ng-model="SearchAll.deleteSolarData.selectedId">
-       
-                        <button class="btn btn-primary" type="submit">Delete</button>
-
-                </form> 
-            </center>
+            <br>
+            <br>
+            <br>
                 
             <br>
                   <div  ng-show="show==1" class="scrollbar" id="Style-default">
@@ -25,7 +19,7 @@
                           <br><br><br>       
                             <div style="overflow-x:auto; " >
                               <center> 
-                         
+                         <div ng-show="solardatas.length !=0">
                                 
                                 <table  >
                                     <thead>
@@ -50,7 +44,7 @@
                             
                       </tr>
                 </thead>
-        <tr ng-repeat="solar in solardatas | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
+        <tr  ng-repeat="solar in solardatas | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
           <td>{{$index +1+(currentPage-1) * pageSize }}</td>
                                              <td>{{solar.S_id}}</td>
                                              <td>{{solar.Customer}}</td>
@@ -72,13 +66,21 @@
 
             
         </tr>
+      
         </table>
+        <br>
+        <center><uib-pagination class="pagination" max-size="10"  
+      boundary-links="true" direction-link="true" total-items="solardatas.length" ng-model="currentPage" items-per-page="pageSize"></uib-pagination>
+                               </center>  
+      </div>
+      <div ng-show="solardatas.length ==0">
+ <h3>No data to display.</h3> 
+</div>
                                      </center>
                                   </div>
 
                                 </div>
-                               <center><uib-pagination total-items="solardatas.length" ng-model="currentPage" items-per-page="pageSize"></uib-pagination>
-                               </center>  
+                               
                             </div>
                          <br><br>
             <div  ng-show="show==2"   id="chart-container">Chart will processing!</div>
