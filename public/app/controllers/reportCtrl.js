@@ -4,13 +4,14 @@ angular.module('reportControllers',[])
     	   var app=this;
          $scope.show = 1;
          $scope.names = [];
+         
          $scope.values = ["Minute", "Hour", "Day","Week","Month","Year"];
          $scope.intervals = ["01", "02", "05","10","15","30","60"];
          $scope.solardatas=[];
-    $scope.pageSize=10;
+         $scope.pageSize=10;
 $scope.currentPage=1;
          
-
+  
        
                  console.log('scope solardatas'+$scope.solardatas);
                  app.SerarchTag=function(SearchSolarData)

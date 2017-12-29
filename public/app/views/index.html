@@ -5,10 +5,16 @@
            <base href="/">
                       <meta charset="utf-8">
                       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <!--  <meta http-equiv="Refresh" content="10">-->
+                   
                       <meta name="viewport" content="width=device-width, initial-scale=1">
                       <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
                       <meta name="description" content="">
                       <meta name="author" content="">
+                      <script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+</script>
                       
 <script type="text/javascript" src="assets/js/fusioncharts.js"></script>
 <script>
@@ -169,7 +175,21 @@
                   .appendTo('#slideshow');
               }, 3000);   
     </script>
+<script>
+     var time = new Date().getTime();
+     $(document.body).bind("mousemove keypress", function(e) {
+         time = new Date().getTime();
+     });
 
+     function refresh() {
+         if(new Date().getTime() - time >= 10000) 
+             window.location.reload(true);
+         else 
+             setTimeout(refresh, 1000);
+     }
+
+     setTimeout(refresh, 1000);
+</script>
 
  </body>              
      

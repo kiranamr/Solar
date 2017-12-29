@@ -15,6 +15,7 @@ angular.module('solarDataServices',[])
 						 		return $http.get('/api/solarsUserdata');
 						 		
 						 };
+						
 						 	 
 						solardataFactory.checkinSearch=function(addCheckindate)
 						{

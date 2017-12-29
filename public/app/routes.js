@@ -66,4 +66,5 @@ angular.module('appRoutes',['ngRoute']).config(function($routeProvider,$location
 													enabled:true,
 													requireBase:false
       											});
+					
 });  

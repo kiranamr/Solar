@@ -17,6 +17,7 @@ $scope.currentPage=1;
            $scope.solardatas=data.data;
               console.log($scope.solardatas);
          });
+      
         };
      getSolars();
       console.log(data);
@@ -29,6 +30,34 @@ $scope.currentPage=1;
             $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
         }
     });
+       $scope.column = 'slno';
+        // sort ordering (Ascending or Descending). Set true for desending
+ $scope.reverse = false; 
+ 
+ // called on header click
+ $scope.sortColumn = function(col){
+  $scope.column = col;
+  if($scope.reverse){
+   $scope.reverse = false;
+   $scope.reverseclass = 'arrow-up';
+  }else{
+   $scope.reverse = true;
+   $scope.reverseclass = 'arrow-down';
+  }
+ };
+ 
+ // remove and change class
+ $scope.sortClass = function(col){
+  if($scope.column == col ){
+   if($scope.reverse){
+    return 'arrow-down'; 
+   }else{
+    return 'arrow-up';
+   }
+  }else{
+   return '';
+  }
+ } 
    
  app.SerarchTag=function(deleteSolarData)
                  {  
@@ -84,6 +113,28 @@ $scope.currentPage=1;
                                           fusioncharts.render();
                                         });
     });
+     
+          SolarData.create(app.addSolarData).then(function(data) 
+            {
+
+                   console.log(data.data.success); 
+                   console.log(data.data.message);
+                   if(data.data.success)
+                   {
+                        app.loading=false;
+                        app.successMsg=data.data.message;
+                       
+
+                   } 
+                   else 
+                   {
+                    
+                         app.loading=false;
+                         app.errorMsg=data.data.message;
+                        
+                   }
+
+            });
 
 
 });

@@ -12,7 +12,6 @@
             <br>
             <br>
             <br>
-           <br>
                 
             <br>
                   <div  ng-show="show==1" class="scrollbar" id="Style-default">
@@ -25,30 +24,32 @@
                                 <table  >
                                     <thead>
                       <tr >
-                            <th>SL NO</th>
-                            <th>ID</th>
-                            <th >CUSTOMER</th>
-                            <th>RTU CONNECTIVITY</th>
-                            <th>RTU LAST CONNECTED</th>
-                            <th>DC VOLT(V)</th>
-                            <th>O/P VOLT(V)</th>
-                            <th>O/P AMPERE (A)</th>
-                            <th>O/P POWER (KW)</th>
+                        <th ng-click="sortColumn('slno')" ng-class="sortClass('slno')">SL NO</th>
+                            <th ng-click="sortColumn('Customer')" ng-class="sortClass('Customer')" >CUSTOMER</th>
+                            <th ng-click="sortColumn('S_id')" ng-class="sortClass('S_id')">ID</th>
+
+                            <th ng-click="sortColumn('rtuConnectivity')" ng-class="sortClass('rtuConnectivity')">RTU CONNECTIVITY</th>
+                            <th ng-click="sortColumn('rtuLastConnected')" ng-class="sortClass('rtuLastConnected')">RTU LAST CONNECTED</th>
+                            <th ng-click="sortColumn('dcVolt')" ng-class="sortClass('dcVolt')">DC VOLT(V)</th>
+                            <th ng-click="sortColumn('outputVolt')" ng-class="sortClass('outputVolt')">O/P VOLT(V)</th>
+                            <th ng-click="sortColumn('outputAmpere')" ng-class="sortClass('outputAmpere')">O/P AMPERE (A)</th>
+                            <th ng-click="sortColumn('outputPower')" ng-class="sortClass('outputPower')">O/P POWER (KW)</th>
                             
-                            <th>TOTAL POWER(KW)</th>
-                            <th>VFD SPEED(rpm)</th>
-                            <th>O/P FREQUENCY(Hz)</th>
-                            <th>FLOW RATE(LPM)</th>
-                            <th>PUMP RUN HOUR</th>
-                            <th>VFD STATUS/ FAULT</th>
+                            <th ng-click="sortColumn('totalPower')" ng-class="sortClass('totalPower')">TOTAL POWER(KW)</th>
+                            <th ng-click="sortColumn('vfdSpeed')" ng-class="sortClass('vfdSpeed')">VFD SPEED(rpm)</th>
+                            <th ng-click="sortColumn('outputFrequency')" ng-class="sortClass('outputFrequency')">O/P FREQUENCY(Hz)</th>
+                            <th ng-click="sortColumn('flowRate')" ng-class="sortClass('flowRate')">FLOW RATE(LPM)</th>
+                            <th ng-click="sortColumn('pumprunHour')" ng-class="sortClass('pumprunHour')">PUMP RUN HOUR</th>
+                            <th ng-click="sortColumn('vfdStatus')" ng-class="sortClass('vfdStatus')">VFD STATUS/ FAULT</th>
                             <th>ACTION</th>
                             
                       </tr>
                 </thead>
-        <tr  ng-repeat="solar in solardatas | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
+        <tr  ng-repeat="solar in solardatas |orderBy:column:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
           <td>{{$index +1+(currentPage-1) * pageSize }}</td>
-                                             <td>{{solar.S_id}}</td>
                                              <td>{{solar.Customer}}</td>
+                                             <td>{{solar.S_id}}</td>
+                                             
                                               <td>{{solar.rtuConnectivity}} </td>
                                               <td>{{solar.rtuLastConnected}} </td>
                                               <td>{{solar.dcVolt}} </td>

@@ -163,6 +163,7 @@ module.exports=function(router)
 
 															 						if (err) throw err;
 																					return res.json({success:true, message:'Solar data created !'});
+																					
 							
 																			});
 					                				}

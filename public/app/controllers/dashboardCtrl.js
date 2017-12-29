@@ -22,7 +22,36 @@ angular.module('dashboardControllers',[])
         };
      getSolars();
      
-         
+  $scope.column = 'slno';
+        // sort ordering (Ascending or Descending). Set true for desending
+ $scope.reverse = false; 
+ 
+ // called on header click
+ $scope.sortColumn = function(col){
+  $scope.column = col;
+  if($scope.reverse){
+   $scope.reverse = false;
+   $scope.reverseclass = 'arrow-up';
+  }else{
+   $scope.reverse = true;
+   $scope.reverseclass = 'arrow-down';
+  }
+ };
+ 
+ // remove and change class
+ $scope.sortClass = function(col){
+  if($scope.column == col ){
+   if($scope.reverse){
+    return 'arrow-down'; 
+   }else{
+    return 'arrow-up';
+   }
+  }else{
+   return '';
+  }
+ } 
+     
+        
     
         
     
@@ -66,10 +95,7 @@ angular.module('dashboardControllers',[])
                         });
 
                    $scope.SolarAll=null;
-                   $timeout(function(){$location.path('/dashboard');
-				             	window.location.reload(true);
-				              	app.successMsg=false;},2000);
-            
+                  
                  getSolars();
 
 
