@@ -200,6 +200,18 @@ router.delete('/manageUsers/:id',function(req,res)
 	     				}) ;
 
 	     			}) ;  
+  router.delete('/manageemails/:id',function(req,res)
+                     {
+	     						var deleteUsers=req.params.id;
+	     							console.log('id is'+deleteUsers);
+	     				Solar.remove({customer:deleteUsers},function(err,users)
+	     				{
+	     					if(err) throw err;
+	     					res.json({success:true,message:'Solar data deleted'});
+
+	     				}) ;
+
+	     			}) ;  
 
 router.delete('/manageUsersData/:id',function(req,res)
                      {
