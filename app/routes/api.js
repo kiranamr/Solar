@@ -33,7 +33,7 @@ var fieldNames = [  'SolarUserId',
 
 //var mongoXlsx = require('mongo-xlsx');
 var fields = [  'S_id',
-				'Customer',
+				'customer',
 				'rtuConnectivity',
 				'rtuLastConnected',
 				'dcVolt',
@@ -109,28 +109,32 @@ module.exports=function(router)
 							solartable.pumprunHour=req.body.pumprunHour;
 							solartable.vfdStatus=req.body.vfdStatus;
 							
-							
-								solartable.save(function(err)
+								Solar.findOne({S_id:req.body.S_id},function(err,solars)
 								{
-						        if(err)
-						           {
-				               			if(err.code == 11000)
-				               			{
-				               				console.log(err.errmsg);
-				               					return	res.json({success:false, message:'customer id already exists  !!!'});
-				               			}
-		 							}
-		 						else
-		 							{
-		 									 return	res.json({success:true, message:'Solar created !'});
-		 							}
-					 			});						
-						});
+					         		if(err) throw err;
+
+					            		if (!solars) {
+					                    			solartable.save(function(err){
+
+															 						if (err) throw err;
+																					return res.json({success:true, message:'Solar created !'});
+																					
+							
+																			});
+										}
+										else{
+									return	res.json({success:false, message:'customer id already exists  !!!'});
+								}
+
+
+								});	
+								
+							});
 						router.post('/solarsUserdata',function(req,res)
 						{   //var solartable=new models.Solar();
 							var solardatatable=new SolarData();
 							solardatatable.S_id=req.body.S_id;
-							solardatatable.Customer=req.body.Customer;
+							//solardatatable.Customer=req.body.Customer;
 							solardatatable.rtuConnectivity=req.body.rtuConnectivity;
 							solardatatable.rtuLastConnected=new Date().toISOString();
 							solardatatable.dcVolt=req.body.dcVolt;
@@ -144,13 +148,13 @@ module.exports=function(router)
 							//solardatatable.onTime=req.body.onTime;
 							solardatatable.pumprunHour=req.body.pumprunHour;
 							solardatatable.vfdStatus=req.body.vfdStatus;
-							if(req.body.S_id==''||req.body.S_id==null||req.body.Customer==''||req.body.Customer==null)	
+							if(req.body.S_id==''||req.body.S_id==null)	
 							{
-								res.json({success:false,message:'Ensure id and customer field should provided!'});
+								res.json({success:false,message:'Ensure id field should provided!'});
 
 							}
 							else{
-								Solar.findOne({S_id:req.body.S_id,customer:req.body.Customer},function(err,solars)
+								Solar.findOne({S_id:req.body.S_id},function(err,solars)
 								{
 					         		if(err) throw err;
 
