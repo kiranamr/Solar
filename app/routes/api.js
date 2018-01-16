@@ -123,8 +123,7 @@ module.exports=function(router)
 							
 																			});
 										   }
-			
-										else{
+										   else{
 									return	res.json({success:false, message:'customer id already exists  !!!'});
 									}
 
