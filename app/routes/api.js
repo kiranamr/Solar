@@ -113,18 +113,19 @@ module.exports=function(router)
 								{
 					         		if(err) throw err;
 
-					            		if (!solars)
+					            		if (solars)
 											{
-					                    			solartable.save(function(err){
+					                    			return	res.json({success:false, message:'customer id already exists  !!!'});
+										   }
+										   else{
+									
+									solartable.save(function(err){
 
 															 						if (err) throw err;
 																					return res.json({success:true, message:'Solar created !'});
 																					
 							
 																			});
-										   }
-										   else{
-									return	res.json({success:false, message:'customer id already exists  !!!'});
 									}
 
 
