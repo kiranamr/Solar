@@ -25,7 +25,7 @@
                                     <thead>
                       <tr >
                         <th ng-click="sortColumn('slno')" ng-class="sortClass('slno')">SL NO</th>
-                            <th ng-click="sortColumn('Customer')" ng-class="sortClass('Customer')" >CUSTOMER</th>
+                            
                             <th ng-click="sortColumn('S_id')" ng-class="sortClass('S_id')">ID</th>
 
                             <th ng-click="sortColumn('rtuConnectivity')" ng-class="sortClass('rtuConnectivity')">RTU CONNECTIVITY</th>
@@ -47,7 +47,7 @@
                 </thead>
         <tr  ng-repeat="solar in solardatas |orderBy:column:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
           <td>{{$index +1+(currentPage-1) * pageSize }}</td>
-                                             <td>{{solar.Customer}}</td>
+                                            
                                              <td>{{solar.S_id}}</td>
                                              
                                               <td>{{solar.rtuConnectivity}} </td>
