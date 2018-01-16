@@ -113,7 +113,8 @@ module.exports=function(router)
 								{
 					         		if(err) throw err;
 
-					            		if (!solars) {
+					            		if (!solars)
+											{
 					                    			solartable.save(function(err){
 
 															 						if (err) throw err;
@@ -121,10 +122,11 @@ module.exports=function(router)
 																					
 							
 																			});
-										}
+										   }
+			
 										else{
 									return	res.json({success:false, message:'customer id already exists  !!!'});
-								}
+									}
 
 
 								});	
@@ -148,12 +150,7 @@ module.exports=function(router)
 							//solardatatable.onTime=req.body.onTime;
 							solardatatable.pumprunHour=req.body.pumprunHour;
 							solardatatable.vfdStatus=req.body.vfdStatus;
-							if(req.body.S_id==''||req.body.S_id==null)	
-							{
-								res.json({success:false,message:'Ensure id field should provided!'});
-
-							}
-							else{
+							
 								Solar.findOne({S_id:req.body.S_id},function(err,solars)
 								{
 					         		if(err) throw err;
@@ -174,7 +171,7 @@ module.exports=function(router)
 
 								});	
 
-							}
+							
 								
 							});
 
