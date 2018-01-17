@@ -116,13 +116,14 @@ $scope.currentPage=1;
      
           SolarData.create(app.addSolarData).then(function(data) 
             {
-
+                   console.log("solar data posted values"+ data);
                    console.log(data.data.success); 
                    console.log(data.data.message);
                    if(data.data.success)
                    {
                         app.loading=false;
                         app.successMsg=data.data.message;
+						console.log("solar data posted values"+data);
                        
 
                    } 

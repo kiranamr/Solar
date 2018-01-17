@@ -11,24 +11,24 @@ angular.module('solarControllers',['solarServices'])
       	
       	    Solar.create(app.addSolarData).then(function(data) 
       	    {
-
+                console.log("solar data posted values"+ data);
                console.log(data.data.success);
                console.log(data.data.message);
                if(data.data.success)
-               {
+               { console.log("solar data posted values"+ data);
                	    app.loading=false;
                     app.successMsg=data.data.message+'...Redirecting';
-                    $timeout(function(){$location.path('/');
+                 /*   $timeout(function(){$location.path('/');
                     window.location.reload(true);
-                    app.successMsg=false;},3000);
+                    app.successMsg=false;},3000);*/
                } 
                else
                {
                	    app.loading=false;
                     app.errorMsg=data.data.message;
-                    $timeout(function(){$location.path('/solar');
+                   /* $timeout(function(){$location.path('/solar');
                     window.location.reload(true);
-                    app.errorMsg=false;},3000);
+                    app.errorMsg=false;},3000);*/
                }
 
       	   });
