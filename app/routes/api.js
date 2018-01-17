@@ -112,21 +112,23 @@ module.exports=function(router)
 								Solar.findOne({S_id:req.body.S_id},function(err,solars)
 								{
 					         		if(err) throw err;
-
-					            		if (solars)
-											{
-					                    			return	res.json({success:false, message:'customer id already exists  !!!'});
-										   }
-										   else{
 									
-													solartable.save(function(err){
+									if(solars){
+					                    				res.json({ success: false, message: 'customer id already exists  !!!' }); // Return an error
+					                				}
+					                				 else 
+					                			 	{
+					                    				solartable.save(function(err)
+														{
 
-												     if (err) throw err;
-													return res.json({success:true, message:'Solar created !'});
+															if (err) throw err;
+															return res.json({success:true, message:'Solar created !'});
 																					
 							
-												});
-									}
+													     });
+					                				}
+
+					            	
 
 
 								});	
