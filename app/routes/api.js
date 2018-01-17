@@ -119,13 +119,13 @@ module.exports=function(router)
 										   }
 										   else{
 									
-									solartable.save(function(err){
+													solartable.save(function(err){
 
-															 						if (err) throw err;
-																					return res.json({success:true, message:'Solar created !'});
+												     if (err) throw err;
+													return res.json({success:true, message:'Solar created !'});
 																					
 							
-																			});
+												});
 									}
 
 
@@ -155,18 +155,19 @@ module.exports=function(router)
 								{
 					         		if(err) throw err;
 
-					            		if (!solars) {
+					            		if (!solars){
 					                    				res.json({ success: false, message: 'No customers id or name was found' }); // Return an error
 					                				}
 					                				 else 
 					                			 	{
-					                    				solardatatable.save(function(err){
+					                    				solardatatable.save(function(err)
+														{
 
-															 						if (err) throw err;
-																					return res.json({success:true, message:'Solar data created !'});
+															if (err) throw err;
+															return res.json({success:true, message:'Solar data created !'});
 																					
 							
-																			});
+													     });
 					                				}
 
 								});	
