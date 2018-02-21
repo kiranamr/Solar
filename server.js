@@ -25,7 +25,7 @@ app.use('/api',appRoutes);
 
 
 
-mongoose.connect('mongodb://SolarPump:27017/SolarDb',function(err)
+mongoose.connect('mongodb://127.0.0.1:27017/SolarDb',function(err)
 	{
 		if(err)
 		{
