@@ -1,0 +1,101 @@
+<div class="container" style="height: 100%;">
+    <div class="scrollbar" id="Style-default">
+      <div class="force-overflow">
+                  
+       <br>
+       
+    
+      <div style="overflow-x:auto; overflow-y:hidden;" >
+       <center> 
+        <div ng-show="solars.length !=0">
+        
+                  <br>
+             <table  >
+                  <thead>
+                        <tr >
+                              <th ng-click="sortColumn('slno')" ng-class="sortClass('slno')">SL NO</th>
+                              <th ng-click="sortColumn('customer')" ng-class="sortClass('customer')" >CUSTOMER</th>
+                              <th ng-click="sortColumn('S_id')" ng-class="sortClass('S_id')">ID</th>
+  
+                              <th ng-click="sortColumn('rtuConnectivity')" ng-class="sortClass('rtuConnectivity')">RTU CONNECTIVITY</th>
+                              <th ng-click="sortColumn('rtuLastConnected')" ng-class="sortClass('rtuLastConnected')">RTU LAST CONNECTED</th>
+                              <th ng-click="sortColumn('dcVolt')" ng-class="sortClass('dcVolt')">DC VOLT(V)</th>
+                              <th ng-click="sortColumn('outputVolt')" ng-class="sortClass('outputVolt')">O/P VOLT(V)</th>
+                              <th ng-click="sortColumn('outputAmpere')" ng-class="sortClass('outputAmpere')">O/P AMPERE (A)</th>
+                              <th ng-click="sortColumn('outputPower')" ng-class="sortClass('outputPower')">O/P POWER (KW)</th>
+                              
+                              <th ng-click="sortColumn('totalPower')" ng-class="sortClass('totalPower')">TOTAL POWER(KW)</th>
+                              <th ng-click="sortColumn('vfdSpeed')" ng-class="sortClass('vfdSpeed')">VFD SPEED(rpm)</th>
+                              <th ng-click="sortColumn('outputFrequency')" ng-class="sortClass('outputFrequency')">O/P FREQUENCY(Hz)</th>
+                              <th ng-click="sortColumn('flowRate')" ng-class="sortClass('flowRate')">FLOW RATE(LPM)</th>
+                              <th ng-click="sortColumn('pumprunHour')" ng-class="sortClass('pumprunHour')">PUMP RUN HOUR</th>
+                              <th ng-click="sortColumn('vfdStatus')" ng-class="sortClass('vfdStatus')">VFD STATUS/ FAULT</th>
+                              <th ng-show="main.isAdmin">ACTION</th>
+                              
+                        </tr>
+                  </thead>
+  
+  
+                 
+  
+                    <tr  class="hoverme" style="width: 200px"  ng-class="{clicked:rowClicked==solar}" ng-repeat="solar in solars | orderBy:column:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize | filter : search" > 
+                        <td>{{$index +1+(currentPage-1) * pageSize }}</td>
+                              <td>{{solar.customer}} </td>
+                                <td><a  href="/viewsolar/{{solar.S_id}}" ><u>{{solar.S_id}}</u></a></td>
+                              <!--<td>&#10006; </td>-->
+                              <td ng-if="solar.rtuConnectivity === 'yes'||solar.rtuConnectivity === 'YES'||solar.rtuConnectivity === 'Yes' ||solar.rtuConnectivity === 'on'||solar.rtuConnectivity === 'On' ||solar.rtuConnectivity === 'ON' "><img src="green1.png" width="15" height="15"></td>
+                              <td ng-if="solar.rtuConnectivity === 'no'||solar.rtuConnectivity === 'NO'||solar.rtuConnectivity === 'No' ||solar.rtuConnectivity === 'off'||solar.rtuConnectivity === 'Off'||solar.rtuConnectivity === 'OFF'  "><img src="red1.png" width="15" height="15"></td>
+                             
+                                             
+                                                <td>{{solar.rtuLastConnected}} </td>
+                                                <td>{{solar.dcVolt}} </td>
+                                                <td>{{solar.outputVolt}} </td>
+                                                <td>{{solar.outputAmpere}} </td>
+                                                <td>{{solar.outputPower}} </td>
+                                                <td>{{solar.totalPower}} </td>
+                                                <td>{{solar.vfdSpeed}} </td>
+                                                <td>{{solar.outputFrequency}} </td>
+                                                <td>{{solar.flowRate}} </td>
+                                               <!-- <td>{{solar.pumprunHour}} </td>-->
+                                               
+                                               <td ng-if="solar.pumprunHour === 'yes' ||solar.pumprunHour === 'Yes' ||solar.pumprunHour === 'YES'||solar.pumprunHour=== 'on'||solar.pumprunHour === 'On'||solar.pumprunHour === 'ON'  "><img src="circle.png" width="15" height="15"></td>
+                                               <td ng-if="solar.pumprunHour === 'no'||solar.pumprunHour === 'No'||solar.pumprunHour === 'NO'||solar.pumprunHour === 'off'||solar.pumprunHour === 'Off'||solar.pumprunHour === 'OFF' "><img src="red.png" width="15" height="15"></td>
+                                               
+                                               
+                              <td>{{solar.vfdStatus}} </td>
+                                                 <td ng-show="main.isAdmin"><a href="#"><button type="button" ng-click="userDashboard.removeSolarUser(solar.S_id);" class="btn btn-primary" >Delete</button></a></td>       
+                     
+                      </tr>
+                      
+          </table>
+          
+        </div>
+        
+          <div style="height: 32vh;" ng-show="solars.length ==0">
+   <h3 style="color:#1b154a; ">No data to display.</h3> 
+  </div>
+      </center>
+  </div>
+  <center><uib-pagination class="pagination" max-size="10" ng-show="solars.length !=0" boundary-links="true" direction-link="true" total-items="solars.length" ng-model="currentPage" items-per-page="pageSize"></uib-pagination></center> 
+          
+  <br><br>
+  <form  novalidate>
+    <center>
+      <b ng-show="solars.length !=0" style="color:#1b154a; font-size: 16px">  Enter id to delete (Which will delete both solardatas and solarusers): 
+          <input style=" width: 144px;height: 26px;"  type="text" ng-model="userDashboard.deleteSolarDatas.selectedIds"  required>
+  
+         <button class="btn btn-primary"   ng-click="userDashboard.SerarchTags(deleteSolarDatas)" ng-really-message="Are you sure?" type="submit">Delete</button>
+  </b>
+  <br>
+  <br>
+  <br>
+  <b ng-show="solars.length !=0" style="color:#1b154a; font-size: 16px">Search :</b><input style=" width: 144px;height: 26px;" ng-show="solars.length !=0" type="text" ng-model="search" placeholder="Enter to search values" />
+    </center>
+    </form> 
+   
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  
+  </div></div>
+  
+  </div>
+    

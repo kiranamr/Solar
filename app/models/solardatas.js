@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 var SolarUserSchema=new Schema({
 								S_id:Number,
-								//Customer:String,
+								
 								rtuConnectivity:String,
 								rtuLastConnected:String,
 								dcVolt:Number,

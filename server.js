@@ -15,7 +15,8 @@ var router=express.Router();
 mongoose.Promise = global.Promise;
 var appRoutes=require('./app/routes/api')(router);
 
-
+app.set('view engine', 'ejs');
+app.set('view engine', 'html');
 app.use(morgan('dev'));
 
 app.use(bodyParser.json()); // for parsing application/json
@@ -25,7 +26,7 @@ app.use('/api',appRoutes);
 
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/SolarDb',function(err)
+mongoose.connect('mongodb://127.0.0.1:27017/SolarDataBase',function(err)
 	{
 		if(err)
 		{

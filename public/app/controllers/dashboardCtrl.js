@@ -1,7 +1,9 @@
 angular.module('dashboardControllers',[])
 		.controller('dashboardCtrl',function($scope,Solar,$http,SolarData,$timeout,$location)
 		{
-		 		 $scope.solars=[];
+          $scope.solars=[];
+          $scope.pageSize=5;
+         $scope.currentPage=1;
 		 		 console.log($scope.solars);
 			   	 var app=this;
 		     	 app.loading=true;

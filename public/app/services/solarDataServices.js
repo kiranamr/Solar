@@ -81,6 +81,13 @@ angular.module('solarDataServices',[])
 							return $http.post('/api/SerchByIdAndDate',SearchSolarData);
 
 						 };
+						 solardataFactory.SearchAllByUserIds=function(SearchUserSolarData)
+						 {
+							
+							return $http.post('/api/UserSerchByIdAndDate',SearchUserSolarData);
+
+						 };
+						 
 						  solardataFactory.SearchAllByIddelete=function(deleteSolarData)
 						 {
 							
@@ -89,8 +96,12 @@ angular.module('solarDataServices',[])
 						 };
 						 
 
-
 						 
+						 
+						 solardataFactory.getRadio2SearchUserAll=function()
+						 {
+						 		return $http.get('/api/UserSerchByIdAndDate');
+						 };
 						  solardataFactory.getRadio2SearchAll=function()
 						 {
 						 		return $http.get('/api/SerchByIdAndDate');

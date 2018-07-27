@@ -22,8 +22,14 @@ angular.module('userServices',[])
 							console.log('id is' +id);
           					   return $http.delete('/api/manageemail/'+id);
 							};
+							userFactory.getPermission=function()
+							{
+							
+          					   return $http.get('/api/permission');
+							};
 
-  
+
+							
 						 
 		return userFactory;
 	});

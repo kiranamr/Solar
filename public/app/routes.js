@@ -1,18 +1,36 @@
-angular.module('appRoutes',['ngRoute']).config(function($routeProvider,$locationProvider)
+
+var app=angular.module('appRoutes',['ngRoute'])
+.config(function($routeProvider,$locationProvider)
 {
 					$routeProvider
-					.when('/',{
+					.when('/login',{
 									templateUrl:'app/views/pages/users/login.html',
 										controller:'mainCtrl',
 										controllerAs:'login'
 								})
-
+								.when('/',{
+									templateUrl:'app/views/pages/home.html'
+								})
+								.when('/Management',{
+									templateUrl:'app/views/pages/adminDashboardPage.html',
+										controller:'AdminCtrl',
+										controllerAs:'AdminDash' ,
+										authenticated:true,
+										permission:'admin'
+								})
+								.when('/',{
+									templateUrl:'app/views/pages/home.html'
+								})
 					.when('/aboutus',{
 										templateUrl:'app/views/pages/aboutus.html',
 										controller:'aboutCtrl',
 										controllerAs:'about'
 									})
-
+					.when('/contactus',{
+										templateUrl:'app/views/pages/ContactUs.html'
+										
+										
+									})
 					.when('/view',{
 										templateUrl:'app/views/pages/solardatapage.html',
 										controller:'searchCtrl',
@@ -41,10 +59,22 @@ angular.module('appRoutes',['ngRoute']).config(function($routeProvider,$location
 										controller:'soarCtrl',
 										controllerAs:'add'
 									})
-					.when('/admin',{
-										templateUrl:'app/views/pages/adminPage.html',
-										controller:'adminCtrl',
-										controllerAs:'login1'
+					.when('/userDashboard',{
+										templateUrl:'app/views/pages/userDashboard.html',
+										controller:'userDashboardCtrl',
+										controllerAs:'userDashboard'
+										
+									})
+									.when('/userReport',{
+										templateUrl:'app/views/pages/reportUaerPage.html',
+										controller:'reportUserCtrl',
+										controllerAs:'reportUser'
+										
+									})
+									.when('/userSingle',{
+										templateUrl:'app/views/pages/userSingle.html',
+										controller:'userSingleCtrl',
+										controllerAs:'userSingle'
 										
 									})
 					
@@ -68,3 +98,36 @@ angular.module('appRoutes',['ngRoute']).config(function($routeProvider,$location
       											});
 					
 });  
+app.run(['$rootScope','Auth','$location','User',function($rootScope,Auth,$location,User)
+{
+	$rootScope.$on('$routeChangeStart',function(event,next){
+		if(next.$$route !== undefined)
+		{
+			if(next.$$route.authenticated === true)
+			{
+				if(!Auth.isLoggedIn())
+				{
+					event.preventDefault();
+					$location.path('/');
+	
+				}
+				
+					
+	
+				
+			}
+			else if(next.$$route.authenticated === false)
+			{
+				if(!Auth.isLoggedIn())
+				{
+					event.preventDefault();
+					$location.path('/profile');
+	
+				}	
+			}
+	
+		}
+		
+	});
+
+}]);

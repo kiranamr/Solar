@@ -7,10 +7,18 @@ var server= require('http');
 var jwt=require('jsonwebtoken');
 var mongoXlsx = require('mongo-xlsx');
 var json2xls=require('json2xls');
+var window=require('window');
 var fs = require('file-system');
+const csvReport = require('csv-report');
 var http = require('http');
 var json2csv = require('json2csv');
 var fs1 = require('fs');
+var pdf = require('html-pdf');
+var htmlToPdf = require('html-to-pdf');
+var html ;
+var options = { format: 'Letter' };
+
+
 
 //require(lubridate);
 
@@ -94,10 +102,24 @@ module.exports=function(router)
 						router.post('/solarsUser',function(req,res)
 						{    var solartable=new Solar();
 							//var solardatatable=new models.SolarData();
+							var date=new Date();
+							var monthNames = [
+								"Jan", "Feb", "Mar",
+								"Apr", "May", "Jun", "Jul",
+								"Aug", "Sep", "Oct",
+								"Nov", "Dec"
+							  ];
+							  var day = date.getDate();
+							  var monthIndex = date.getMonth();
+							  var year = date.getFullYear();
+							  var hour=date.getHours();
+							  var minute=date.getMinutes();
+							
+							  console.log( day + '-' + monthNames[monthIndex] + '-' + year+' '+hour+':'+minute);
 							solartable.S_id=req.body.S_id;
 							solartable.customer=req.body.customer;
 							solartable.rtuConnectivity=req.body.rtuConnectivity;
-							solartable.rtuLastConnected=new Date().toISOString();
+							solartable.rtuLastConnected=day + ' ' + monthNames[monthIndex] + ' ' + year+' '+hour+':'+minute;
 							solartable.dcVolt=req.body.dcVolt;
 							solartable.outputVolt=req.body.outputVolt;
 							solartable.outputAmpere=req.body.outputAmpere;
@@ -108,30 +130,39 @@ module.exports=function(router)
 							solartable.flowRate=req.body.flowRate;
 							solartable.pumprunHour=req.body.pumprunHour;
 							solartable.vfdStatus=req.body.vfdStatus;
-							
-								Solar.findOne({S_id:req.body.S_id},function(err,solars)
-								{
-					         		if(err) throw err;
+							User.findOne({S_id:req.body.S_id},function(err,users){
+								if(err) throw err;
 									
-									if(solars){
-					                    				res.json({ success: false, message: 'customer id already exists  !!!' }); // Return an error
-					                				}
-					                				 else 
-					                			 	{
-					                    				solartable.save(function(err)
-														{
-
-															if (err) throw err;
-															return res.json({success:true, message:'Solar created !'});
-																					
-							
-													     });
-					                				}
-
-					            	
-
-
-								});	
+								if(!users){
+									res.json({ success: false, message: 'customer id not exists  !!!' });
+								}
+								else{
+									Solar.findOne({S_id:req.body.S_id},function(err,solars)
+									{
+										 if(err) throw err;
+										
+										if(solars){
+															res.json({ success: false, message: 'customer id already exists  !!!' }); // Return an error
+														}
+														 else 
+														 {
+															solartable.save(function(err)
+															{
+	
+																if (err) throw err;
+																return res.json({success:true, message:'Solar created !'});
+																						
+								
+															 });
+														}
+	
+										
+	
+	
+									});	
+								}
+							});
+								
 								
 							});
 						router.post('/solarsUserdata',function(req,res)
@@ -139,8 +170,20 @@ module.exports=function(router)
 							var solardatatable=new SolarData();
 							solardatatable.S_id=req.body.S_id;
 							//solardatatable.Customer=req.body.Customer;
+							var date=new Date();
+							var monthNames = [
+								"Jan", "Feb", "Mar",
+								"Apr", "May", "Jun", "Jul",
+								"Aug", "Sep", "Oct",
+								"Nov", "Dec"
+							  ];
+							  var day = date.getDate();
+							  var monthIndex = date.getMonth();
+							  var year = date.getFullYear();
+							  var hour=date.getHours();
+							  var minute=date.getMinutes();
 							solardatatable.rtuConnectivity=req.body.rtuConnectivity;
-							solardatatable.rtuLastConnected=new Date().toISOString();
+							solardatatable.rtuLastConnected=day + '-' + monthNames[monthIndex] + '-' + year+' '+hour+':'+minute;
 							solardatatable.dcVolt=req.body.dcVolt;
 							solardatatable.outputVolt=req.body.outputVolt;
 							solardatatable.outputAmpere=req.body.outputAmpere;
@@ -162,6 +205,21 @@ module.exports=function(router)
 					                				}
 					                				 else 
 					                			 	{
+														Solar.update({'S_id':req.body.S_id}, {$set:
+															 {
+															rtuConnectivity:req.body.rtuConnectivity,
+															rtuLastConnected:day + '-' + monthNames[monthIndex] + '-' + year+' '+hour+':'+minute,
+															dcVolt:req.body.dcVolt,
+															outputVolt:req.body.outputVolt,
+															outputAmpere:req.body.outputAmpere,
+															outputPower:req.body.outputPower,
+															totalPower:req.body.totalPower,
+															vfdSpeed:req.body.vfdSpeed,
+															outputFrequency:req.body.outputFrequency,
+															flowRate:req.body.flowRate,
+															pumprunHour:req.body.pumprunHour,
+															vfdStatus:req.body.vfdStatus}}, {w:1}, function(err, result){
+															console.log(result);});
 					                    				solardatatable.save(function(err)
 														{
 
@@ -317,26 +375,41 @@ router.delete('/manageUsersData/:id',function(req,res)
 					{           SearchId=(req.body.selectedId);
 								 SearchFromDate=req.body.selectedFromDate;
 								 SearchToDate=req.body.selectedToDate;
-						         /* SearchId=(req.body.selectedId);
-								var SearchFromDate1=req.body.selectedFromDate;
-								var SearchToDate1=req.body.selectedToDate;
-								 SearchId=(req.body.selectedId);
-								var SearchFromDate1=req.body.selectedFromDate;
-								var SearchToDate1=req.body.selectedToDate;
-								 var SearchFromDate2=new Date(SearchFromDate1);
-								 var  SearchToDate2=new Date(SearchToDate1);
-								 SearchFromDate2.setDate(SearchFromDate2.getDate()+1);
-								 SearchFromDate2.setHours(0);
-								 SearchToDate2.setDate(SearchToDate2.getDate()+1);
-								 SearchToDate2.setHours(0);
-								 SearchFromDate=new Date(SearchFromDate2).toISOString();
-								 SearchToDate=new Date(SearchToDate2).toISOString();*/
+								 var date=new Date(SearchFromDate);
+								 var date1=new Date(SearchToDate);
+								 var monthNames = [
+									"Jan", "Feb", "Mar",
+									"Apr", "May", "Jun", "Jul",
+									"Aug", "Sep", "Oct",
+									"Nov", "Dec"
+								  ];
+								  var day = date.getDate();
+								  var monthIndex = date.getMonth();
+								  var year = date.getFullYear();
+								  var hour=date.getHours();
+							  var minute=date.getMinutes();
+								  
+								  var FromDate =day + '-' + monthNames[monthIndex] + '-' + year+' '+hour+':'+minute;
+								  var monthNames1 = [
+									"Jan", "Feb", "Mar",
+									"Apr", "May", "Jun", "Jul",
+									"Aug", "Sep", "Oct",
+									"Nov", "Dec"
+								  ];
+								  var day1 = date1.getDate();
+								  var monthIndex1 = date1.getMonth();
+								  var year1 = date1.getFullYear();
+								  var hour1=date1.getHours();
+							  var minute1=date1.getMinutes();
+								var ToDate =day1 + '-' + monthNames1[monthIndex1] + '-' + year1+' '+hour1+':'+minute1;
+								console.log("from date is "+FromDate);
+								console.log("to date is "+ToDate);
 								 
 								 console.log("Sid is "+SearchId);
 								 console.log("from date is "+SearchFromDate);
 								 console.log("to date is "+SearchToDate);
 								  if(SearchId == null||SearchId == '' ){
-								  	SolarData.find({"S_id":SearchId,"rtuLastConnected":{$gte:SearchFromDate,$lt:SearchToDate}},function(err,solardatas)
+								  	SolarData.find({"S_id":SearchId,"rtuLastConnected":{$gte:FromDate,$lt:ToDate}},function(err,solardatas)
 							 {
 							
 							   res.json(solardatas);
@@ -348,7 +421,7 @@ router.delete('/manageUsersData/:id',function(req,res)
 								  }
 								  else
 								  {
-								  	 	SolarData.find({"rtuLastConnected":{$gte:SearchFromDate,$lt:SearchToDate}},function(err,solardatas)
+								  	 	SolarData.find({"rtuLastConnected":{$gte:FromDate,$lt:ToDate}},function(err,solardatas)
 							 {
 							
 							   res.json(solardatas);
@@ -360,6 +433,75 @@ router.delete('/manageUsersData/:id',function(req,res)
 
 							 
 					});
+					
+					var SearchUserId='';
+					var SearchUserFromDate='';
+					var SearchUserToDate='';
+
+				router.post('/UserSerchByIdAndDate',function(req,res)
+				{         
+					  SearchUserId=(req.body.selectedUserId);
+							 SearchUserFromDate=req.body.selectedUserFromDate;
+							 SearchUserToDate=req.body.selectedUserToDate;
+						  
+							 var date=new Date( SearchUserFromDate);
+							 var date1=new Date(SearchUserToDate);
+							 var monthNames = [
+								"Jan", "Feb", "Mar",
+								"Apr", "May", "Jun", "Jul",
+								"Aug", "Sep", "Oct",
+								"Nov", "Dec"
+							  ];
+							  var day = date.getDate();
+							  var monthIndex = date.getMonth();
+							  var year = date.getFullYear();
+							  var hour=date.getHours();
+							  var minute=date.getMinutes();
+							  var FromDate =day + '-' + monthNames[monthIndex] + '-' + year+' '+hour+':'+minute;
+							  var monthNames1 = [
+								"Jan", "Feb", "Mar",
+								"Apr", "May", "Jun", "Jul",
+								"Aug", "Sep", "Oct",
+								"Nov", "Dec"
+							  ];
+							  var day1 = date1.getDate();
+							  var monthIndex1 = date1.getMonth();
+							  var year1 = date1.getFullYear();
+							  var hour1=date1.getHours();
+							  var minute1=date1.getMinutes();
+							  
+							var ToDate =day1 + '-' + monthNames1[monthIndex1] + '-' + year1+' '+hour1+':'+minute1;
+							console.log("from date is "+FromDate);
+							console.log("to date is "+ToDate);
+							 
+							 console.log("Sid is "+SearchUserId);
+							 console.log("from date is "+SearchUserFromDate);
+							 console.log("to date is "+SearchUserToDate);
+							  if(SearchUserId == null||SearchUserId == '' ){
+								  SolarData.find({"S_id":SearchUserId,"rtuLastConnected":{$gte:FromDate,$lt:ToDate}},function(err,solardatas)
+						 {
+						
+						   res.json(solardatas);
+						   console.log(solardatas);
+						  
+	 
+
+						 });
+							  }
+							  else
+							  {
+									   SolarData.find({"rtuLastConnected":{$gte:FromDate,$lt:ToDate}},function(err,solardatas)
+						 {
+						
+						   res.json(solardatas);
+						   console.log(solardatas);
+							
+
+						 });
+							  }
+
+						 
+				});
 					
 					var deleteId='';
 
@@ -532,40 +674,154 @@ var deleteIdsolardata='';
 
 	     			}) ;      
       
-
-
-					router.get('/SerchByIdAndDate',function(req,res)
+					 
+					 router.get('/UserSerchByIdAndDate',function(req,res)
 					{
 							//console.log('I recieved a get request search All')						
 							//console.log('Checkinserach value is'+checkinSearch);
-							 if(SearchId == null||SearchId == '' ){
-								  	SolarData.find({"rtuLastConnected":{$gte:SearchFromDate,$lt:SearchToDate}},function(err,solardatas)
+							var date=new Date( SearchUserFromDate);
+							var date1=new Date(SearchUserToDate);
+							var monthNames = [
+							   "Jan", "Feb", "Mar",
+							   "Apr", "May", "Jun", "Jul",
+							   "Aug", "Sep", "Oct",
+							   "Nov", "Dec"
+							 ];
+							 var day = date.getDate();
+							 var monthIndex = date.getMonth();
+							 var year = date.getFullYear();
+							 
+							 var FromDate =day + '-' + monthNames[monthIndex] + '-' + year+' ';
+							 var monthNames1 = [
+							   "Jan", "Feb", "Mar",
+							   "Apr", "May", "Jun", "Jul",
+							   "Aug", "Sep", "Oct",
+							   "Nov", "Dec"
+							 ];
+							 var day = date1.getDate()+1;
+							 var monthIndex = date1.getMonth();
+							 var year = date1.getFullYear();
+							 
+						   var ToDate =day + '-' + monthNames1[monthIndex] + '-' + year;
+						   console.log("from date is "+FromDate);
+						   console.log("to date is "+ToDate);
+							console.log('user id is '+SearchUserId)
+							 if(SearchUserId == null||SearchUserId == '' ){
+								  	SolarData.find({"S_id":SearchUserId,"rtuLastConnected":{$gte:FromDate,$lt:ToDate}},function(err,solardatas)
 							 {
 							
 							  
 							  
-					var csv = json2csv({ data: solardatas, fields: fields ,fieldNames: fieldNames});
-  	res.json(solardatas);
+								var csv = json2csv({ data: solardatas, fields: fields ,fieldNames: fieldNames});
+  							res.json(solardatas);
         
-		fs1.writeFile('file.csv', csv, function(err) {
-  if (err) throw err;
-  console.log('file saved');
-});
+								fs1.writeFile('file.csv', csv, function(err) {
+  										if (err) throw err;
+  								console.log('file saved');
+										});
 							 });
 								  }
 								  else{
-								  	 	SolarData.find({"S_id":SearchId,"rtuLastConnected":{$gte:SearchFromDate,$lt:SearchToDate}},function(err,solardatas)
+								  	 	SolarData.find({"S_id":SearchUserId,"rtuLastConnected":{$gte:FromDate,$lt:ToDate}},function(err,solardatas)
+							 {
+
+							  
+							   	console.log(solardatas);
+									var csv = json2csv({ data: solardatas, fields: fields ,fieldNames: fieldNames});
+	 								 res.json(solardatas);
+	
+	   /*res.sendFile(__dirname + '/businesscard.html', {
+		   info: info,
+	   },
+	  pdf.create(fs.readFileSync('app/routes/businesscard.html', 'utf8'), options).toFile('businesscard.pdf', function(err, res) {
+		if (err) return console.log(err);
+		console.log(res); // { filename: '/app/businesscard.pdf' }
+	  })
+	);*/
+	 
+						fs1.writeFile('file.csv', csv, function(err) {
+ 								 if (err) throw err;
+ 							 console.log('file saved');
+								});
+
+ 
+
+
+							 });
+								  }
+
+					});
+
+					router.get('/SerchByIdAndDate',function(req,res)
+					{
+						var date=new Date( SearchFromDate);
+						var date1=new Date(SearchToDate);
+						var monthNames = [
+						   "Jan", "Feb", "Mar",
+						   "Apr", "May", "Jun", "Jul",
+						   "Aug", "Sep", "Oct",
+						   "Nov", "Dec"
+						 ];
+						 var day = date.getDate();
+						 var monthIndex = date.getMonth();
+						 var year = date.getFullYear();
+						 
+						 var FromDate =day + '-' + monthNames[monthIndex] + '-' + year+' ';
+						 var monthNames1 = [
+						   "Jan", "Feb", "Mar",
+						   "Apr", "May", "Jun", "Jul",
+						   "Aug", "Sep", "Oct",
+						   "Nov", "Dec"
+						 ];
+						 var day = date1.getDate()+1;
+						 var monthIndex = date1.getMonth();
+						 var year = date1.getFullYear();
+						 
+					   var ToDate =day + '-' + monthNames1[monthIndex] + '-' + year;
+					   console.log("from date is "+FromDate);
+					   console.log("to date is "+ToDate);
+							//console.log('I recieved a get request search All')						
+							//console.log('Checkinserach value is'+checkinSearch);
+							 if(SearchId == null||SearchId == '' ){
+								  	SolarData.find({"rtuLastConnected":{$gte:FromDate,$lt:ToDate}},function(err,solardatas)
 							 {
 							
 							  
-							   console.log(solardatas);
-						var csv = json2csv({ data: solardatas, fields: fields ,fieldNames: fieldNames});
-  	res.json(solardatas);
+							  
+								var csv = json2csv({ data: solardatas, fields: fields ,fieldNames: fieldNames});
+  							res.json(solardatas);
         
-		fs1.writeFile('file.csv', csv, function(err) {
-  if (err) throw err;
-  console.log('file saved');
-});
+								fs1.writeFile('file.csv', csv, function(err) {
+  										if (err) throw err;
+  								console.log('file saved');
+										});
+							 });
+								  }
+								  else{
+								  	 	SolarData.find({"S_id":SearchId,"rtuLastConnected":{$gte:FromDate,$lt:ToDate}},function(err,solardatas)
+							 {
+
+							  
+							   	console.log(solardatas);
+									var csv = json2csv({ data: solardatas, fields: fields ,fieldNames: fieldNames});
+	 								 res.json(solardatas);
+	
+	   /*res.sendFile(__dirname + '/businesscard.html', {
+		   info: info,
+	   },
+	  pdf.create(fs.readFileSync('app/routes/businesscard.html', 'utf8'), options).toFile('businesscard.pdf', function(err, res) {
+		if (err) return console.log(err);
+		console.log(res); // { filename: '/app/businesscard.pdf' }
+	  })
+	);*/
+	 
+						fs1.writeFile('file.csv', csv, function(err) {
+ 								 if (err) throw err;
+ 							 console.log('file saved');
+								});
+
+ 
+
 
 							 });
 								  }
@@ -587,8 +843,27 @@ router.get('/downloads', function(req, res)
 							  var filestream = fs.createReadStream(file);
 							  filestream.pipe(res);
 					});
-
-
+					router.get('/downloadsPdf', function(req, res)
+					{
+						var pdf = require('html-pdf');
+						pdf.create(html).toFile([filepath, ],function(err, res){
+						  console.log(res.filename);
+						});
+						 
+						pdf.create(html).toStream(function(err, stream){
+						  stream.pipe(fs.createWriteStream('./foo.pdf'));
+						});
+						 
+						pdf.create(html).toBuffer(function(err, buffer){
+						  console.log('This is a buffer:', Buffer.isBuffer(buffer));
+						});
+						 
+						 
+						// for backwards compatibility
+						// alias to pdf.create(html[, options]).toBuffer(callback)
+						pdf.create(html [  options], function(err, buffer){});
+					});
+				
 
 					var sid='';
 
@@ -723,6 +998,7 @@ router.get('/downloads', function(req, res)
 					 
 					      });
 					});
+				
 
 					 router.get('/solardatain',function(req,res)
 					{
@@ -769,16 +1045,23 @@ router.get('/downloads', function(req, res)
 
 					router.post('/users',function(req,res)
 						{
-							var user=new User();
+							var user=new User({username: req.body.username});
 							user.firstname=req.body.fname;
 							user.lastname=req.body.lname;
 							
 							user.password=req.body.password;
 							user.mobile=req.body.mobile;
 							user.email=req.body.email;
-							if(req.body.password==null||req.body.password==''||req.body.email==null||req.body.email=='')
+							user.S_id=req.body.S_id;
+							
+							
+    
+    if(req.body.adminCode === 'secretcode123') {
+      user.isAdmin = true;
+    }
+							if(req.body.password==null||req.body.password==''||req.body.email==null||req.body.email==''||req.body.S_id==null||req.body.S_id=='')
 							{
-								res.json({success:false,message:' email and password were provided'});
+								res.json({success:false,message:' email,Sid and password  were provided'});
 
 							}
 							else
@@ -956,11 +1239,12 @@ router.get('/downloads', function(req, res)
 							  	res.json(admins);			 
 								});
 					});
-
+					var sid5='';
+					var isAdmin='';
 
 					router.post('/authenticate',function(req,res)
 					{
-							User.findOne({ email:req.body.email}).select('firstname lastname email password mobile').exec(function(err,user)
+							User.findOne({ email:req.body.email}).select('firstname lastname email password mobile isAdmin S_id').exec(function(err,user)
 							{
 								if(err) throw err;
 								if(req.body.email==null||req.body.email==''||req.body.password==null||req.body.password=='')
@@ -990,15 +1274,46 @@ router.get('/downloads', function(req, res)
 												return res.json({success:false,message:'Could not authenticate password'});
 											}else
 											{
-												 var token= jwt.sign({email:user.email,firstname:user.firstname,lastname:user.lastname,mobile:user.mobile },secret,{ expiresIn:'24h'});
-												  return res.json({success:true,message:'User authenticated !',token:token});
+												 var token= jwt.sign({email:user.email,firstname:user.firstname,lastname:user.lastname,mobile:user.mobile,S_id:user.S_id,isAdmin:user.isAdmin },secret,{ expiresIn:'24h'});
+												  sid5=user.S_id;
+												isAdmin=user.isAdmin;
+												  return res.json({success:true,message:req.body.email,token:token});
 											}
 										}
 									}
 
 							});
 					});
-	 
+					console.log(sid5+'sid');
+					router.get('/solarsUser',function(req,res)
+					{
+							// get all the users
+							console.log('I recived a get request');
+							Solar.find(function(err,solars) {
+							 
+							if (err)
+							  	res.send(err);
+							  	res.json(solars);
+							 
+					 
+					      });
+					});
+						router.get('/solarsUserDashboard',function(req,res)
+					{
+							// get all the users
+
+							console.log('I recived a get request from solar');
+							console.log('I recived a get request');
+
+							Solar.find({S_id:sid5},function(err,solars) {
+							 
+							if (err)
+							  	res.send(err);
+							  	res.json(solars);
+							 
+					 
+					      });
+					});
 					 router.use(function(req,res,next)
 					  {
 							  	var token=req.body.token||req.body.query||req.headers['x-access-token'];

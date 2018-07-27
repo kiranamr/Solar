@@ -4,7 +4,8 @@ angular.module('solardataControllers',[])
     var app=this;
     $scope.show = 1;
 $scope.solardatas=[];
-$scope.pageSize=10;
+
+$scope.pageSize=5;
 $scope.currentPage=1;
   var  data=[{"name": "Moroni", "age": 50},
                 {"name": "Tiancum", "age": 43},

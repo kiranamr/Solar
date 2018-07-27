@@ -15,6 +15,9 @@
 
                       
 <script type="text/javascript" src="assets/js/fusioncharts.js"></script>
+
+
+
 <script>
     document.write('<base href="' + document.location + '" />');
   </script>
@@ -40,6 +43,39 @@
                       <script src="assets/js/fusioncharts.theme.zune.js"></script>
                       <script src="assets/js/jquery-2.1.4.min.js"></script>
                      
+                      <script src="assets/js/jquery-2.1.3.js"></script>
+                     
+                      
+                      
+                      <script type="text/javascript" src="assets/js/tableExport.js"></script>
+<script type="text/javascript" src="assets/js/jquery.base64.js"></script>
+<script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+<script> zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+    
+ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.debug.js"></script>
+<script>if (window.define) delete window.define.amd;</script>
+<!-- EDIT: For now, add this line between the libraries -->
+<!-- The reason being that jspdf includes a version of requirejs which -->
+<!-- jspdf-autotable currently is not expecting. You can also use version < 2.0.21 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.0.28/jspdf.plugin.autotable.js"></script>
+
+<script>
+       
+        </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-touch.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+<script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+<script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+<script src="http://ui-grid.info/release/ui-grid.js"></script>
+<link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css">
+
+
                       <script src="app/app.js"></script>
                       <script  src="app/routes.js"></script>          
                       <style>
@@ -49,7 +85,78 @@
                                 -ms-user-select: none;
                                 }
                       </style>
-                      
+                      <script  type="text/javascript">
+                        $(document).ready(function(e){
+                          $("#pdf").click(function(e){
+                            console.log('clicked pdf')
+                            $("#mytable").tableExport(
+                              {
+                                type:'pdf'
+                              }
+                            );
+                          });
+                        });
+                        function callme(){
+                            var table = tableToJson($('#mytable').get(0));
+                            var doc = new jsPDF('l','pt','letter',true);
+                            
+                            
+                            $.each(table, function(i, row){
+                                $.each(row, function(j,cell){
+                                if(j=="S_id" | j==1){
+                                 doc.cell(1,10,190,20,cell,i);	
+                                }
+                                else{
+                                    doc.cell(1,10,90,20,cell,i);
+                                }
+                                
+                                });
+                            });
+                            
+                            doc.save('Safaa.pdf');
+                            }
+                            
+                            function tableToJson(table) {
+                                var data = [];
+                            
+                                // first row needs to be headers
+                                var headers = [];
+                                for (var i=0; i<table.rows[0].cells.length; i++) {
+                                    headers[i] = table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi,'');
+                                }
+                                data.push(headers);
+                                // go through cells
+                                for (var i=1; i<table.rows.length; i++) {
+                            
+                                    var tableRow = table.rows[i];
+                                    var rowData = {};
+                            
+                                    for (var j=0; j<tableRow.cells.length; j++) {
+                            
+                                        rowData[ headers[j] ] = tableRow.cells[j].innerHTML;
+                            
+                                    }
+                            
+                                    data.push(rowData);
+                                }       
+                            
+                                return data;
+                            }
+                            
+                        </script>
+                        <script
+  src="https://code.jquery.com/jquery-1.11.2.js"
+  integrity="sha256-WMJwNbei5YnfOX5dfgVCS5C4waqvc+/0fV7W2uy3DyU="
+  crossorigin="anonymous"></script>
+  
+                        <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+                        <script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js">
+                        </script>
+                        <link rel="stylesheet" type="text/css"
+                            href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" />
+                        <link rel="stylesheet" type="text/css"
+                            href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css" />
+                    
                       <script src = "assets/js/ng-table.min.js" ></script>  
                       <script src = "assets/js/ui-bootstrap-tpls-1.3.2.js" ></script>  
                       <script src = "assets/js/Chart.bundle.js" ></script>  
@@ -57,12 +164,15 @@
                       <script src="app/controllers/userCtrl.js"></script>
                       <script src="app/controllers/mainCtrl.js"></script>
                       <script src="app/controllers/soarCtrl.js"></script>
-                      
+                      <script src="app/controllers/AdminCtrl.js"></script>
                       <script src="app/controllers/aboutCtrl.js"></script>
                       <script src="app/controllers/solarDataCtrl.js"></script>
                       <script src="app/controllers/searchCtrl.js"></script>
                       <script src="app/controllers/reportCtrl.js"></script>
-                      <script src="app/controllers/dashboardCtrl.js"></script>                    
+                      <script src="app/controllers/dashboardCtrl.js"></script>   
+                      <script src="app/controllers/userDashboardCtrl.js"></script> 
+                      <script src="app/controllers/reportUserCtrl.js"></script> 
+                      <script src="app/controllers/userSingleCtrl.js"></script>                      
                       <script src="app/services/userServices.js"></script>
                       <script src="app/services/authServices.js"></script>
                       <script src="app/services/solarServices.js"></script>
@@ -78,7 +188,7 @@
           <!-- Main jumbotron for a primary marketing message or call to action -->
             <!-- Fixed navbar -->
                <nav class="navbar navbar-inverse nav-justified " >           
-                 <div class="container">             
+                 <div >             
                     <div class="row">
                        <div class="col-md-12">
                           <div class="col-md-1">
@@ -89,41 +199,64 @@
                                          <span class="icon-bar"></span>
                                          <span class="icon-bar"></span>
                                   </button>
-                                          <a title="Home" href="/home" ng-show="!main.isLoggedIn" class="navbar-brand" title="Categories"><img src="sloarsystem.png"   style=" width:110px;height:70px; margin-top:-30px; margin-left: -10px; ">
+                                          <a title="Home" href="/home" ng-show="!main.isLoggedIn" class="navbar-brand" title="Categories"><img src="logo2.png"   style=" height:70px; margin-top:-30px;">
                                           </a> 
-                                           <a title="Home" href="/dashboard" ng-show="main.isLoggedIn" class="navbar-brand" title="Categories"><img src="sloarsystem.png"   style=" width:110px;height:70px; margin-top:-30px; margin-left: -10px; ">
+                                           <a title="Home" href="/dashboard" ng-show="main.isLoggedIn&&main.isAdmin" class="navbar-brand" title="Categories"><img src="logo2.png"   style="height:70px; margin-top:-30px;  ">
+                                          </a>  <a title="Home" href="/userDashboard" ng-show="main.isLoggedIn&& !main.isAdmin" class="navbar-brand" title="Categories"><img src="logo2.png"   style="height:70px; margin-top:-30px;  ">
                                           </a> 
                                             
                               </div>
                          </div>
                          <div class="col-md-11">
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  style="  margin-top:20px; ">
-                                <ul class="nav navbar-nav navbar-left custom-menu"  >
-                                         <!--      <li ><a href="/"   data-toggle="collapse" data-target=".navbar-collapse" title="Home">Home</a></li>-->
-                                               <li> <a href="/dashboard" ng-show="main.isLoggedIn" title="solar"  class="forgot-password">  Dashboard</a></li>
-                                               <li ng-show="!main.isLoggedIn"><a  ng-show="!main.isLoggedIn"  href="/login" data-toggle="collapse" data-target=".navbar-collapse" title="Login" >User</a></li>                       
-                                              
-                                               <li ng-show="main.isLoggedIn"><a    href="/report"  title="Report" >Report</a></li>                                        
-                                               <li><a ng-show="main.isLoggedIn" href="/profile"  data-toggle="collapse" data-target=".navbar-collapse" title="Profile">Profile</a></li>
-                                               <li><a   href="/aboutus" data-toggle="collapse" data-target=".navbar-collapse" title="About us" >About us</a></li>
-                                               <li><a ng-show="main.isLoggedIn" href="#" title="Logout" ng-click="main.logout();" data-toggle="collapse" data-target=".navbar-collapse">Logout</a></li>
+                                <ul class="nav navbar-nav navbar-right custom-menu" >
+                                               <li ng-show="main.isLoggedIn &&  main.isAdmin"> <a href="/dashboard" style="color: blue" ng-show="main.isLoggedIn" title="solar" data-toggle="collapse" data-target=".navbar-collapse" ><b>Dashboard</b></a></li>
+                                               <li ng-show="main.isLoggedIn &&  !main.isAdmin"> <a href="/userDashboard" style="color: blue" ng-show="main.isLoggedIn" title="Dashboard" data-toggle="collapse" data-target=".navbar-collapse" ><b>Dashboard</b></a></li>
+                                             <!--  <li ng-show="!main.isLoggedIn"><a style="color: blue" ng-show="!main.isLoggedIn"  href="/login" data-toggle="collapse" data-target=".navbar-collapse" title="Login" ><b>User</b></a></li>   -->                           
+                                            <li ng-show="main.isLoggedIn&&main.isAdmin"><a  style="color: blue"  href="/report" data-toggle="collapse" data-target=".navbar-collapse"  title="Report" ><b>Report</b></a></li>                                  
+                                             
+                                               <li ng-show="main.isLoggedIn&&!main.isAdmin"><a  style="color: blue"  href="/userReport" data-toggle="collapse" data-target=".navbar-collapse"  title="Report" ><b>Report</b></a></li>                                        
                                                
-                                            
+                                               <li><a   href="/aboutus" style="color: blue" data-toggle="collapse" data-target=".navbar-collapse" title="About us" ><b>About us</b></a></li>
+                                              
+                                               <li><a   href="/contactus" style="color: blue" data-toggle="collapse" data-target=".navbar-collapse" title="Contact us" ><b>Contact us</b></a></li>
+                                              
+                                               <li ng-show="main.isLoggedIn"><h5  style="color: blue;margin-top: 5px;" ng-show="main.isLoggedIn" data-toggle="collapse" data-target=".navbar-collapse"><b data-toggle="collapse" data-target=".navbar-collapse">&nbsp &nbspWelcome {{main.userfirstname}} !</b></h5></li>
+                                             <li class="dropdown" ng-show="main.isLoggedIn">
+                                                <button class="dropbtn"> <img src="icon_profile.svg" style="height: 30px;width: 30px; margin-top: -23px"/></button>
+                                                <div class="dropdown-content">
+                                                        
+                                                        <a ng-show="main.isLoggedIn" style="color: blue" href="/profile"  data-toggle="collapse" data-target=".navbar-collapse" title="Profile"><b>Profile</b></a>
+                                                     <a ng-show="main.isLoggedIn" style="color: blue" href="#" title="Logout" ng-click="main.logout();" data-toggle="collapse" data-target=".navbar-collapse"><b>Logoff</b></a>
+                                                        
+                                                    
+  
+                                                </div>
+                                            </li>
                                   </ul>
                                 
                                   
-                                  <ul class="nav navbar-nav navbar-right "  >
-                                            <li style="margin-right: -50px" ng-show="main.isLoggedIn" >welcome {{main.userfirstname}} ! </li>
+                                  
+                                            
                              </div>
                           </div>
                       </div>
                   </div>
             </div>
           </nav>
-          <br>   
+         
           <div   style="width: 100%">
             <div class="container" style="background-color:white;top:90px;width: 100% " ng-view></div>
          </div>
+         <footer >
+                <div  style="height:60px;background-color:#000000;">
+                    <div class="text-center" style="color:#777677 ;font-size:16px;padding:9px;font-family: 'Roboto';font-weight:normal" >
+             <br />
+             © 2018, All rights reserved to <a target="_blank" href="http://www.digitalshark.in/">Digital Shark Technology</a>
+             
+         </div>
+                </div>
+            </footer>
       </div>
    </div>      
     <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
@@ -173,7 +306,7 @@
                   .appendTo('#slideshow');
               }, 3000);   
     </script>
-<script>
+<!--<script>
      var time = new Date().getTime();
      $(document.body).bind("mousemove keypress", function(e) {
          time = new Date().getTime();
@@ -187,8 +320,26 @@
      }
 
      setTimeout(refresh, 1000);
-</script>
+</script>-->
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        var table = $("#mytable").DataTable({
+    "columnDefs": [{
+        "width": "8%", 
+        "targets": 0
+    }],
+    dom: 'Bfrtip',
+    'bSort': false,
+    bPaginate: false,
+    bFilter: false,
+    bInfo: false,
+    buttons: [
+        'copy', 'excel', 'pdf'
+    ]
+});
+});
+</script>
  </body>              
      
 </html>

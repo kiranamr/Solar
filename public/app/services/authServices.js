@@ -25,6 +25,18 @@ angular.module('authServices',[])
 								}
 						};
 
+						authFactory.isAdminLoggedIn=function()
+						{
+								if(AuthToken.getToken())
+								{
+										return true;
+								}
+								else
+								{		
+										return false;
+								}
+						};
+
 						authFactory.getUser=function()
 					    {
 					 			if(AuthToken.getToken())

@@ -19,10 +19,13 @@ angular.module('mainControllers',['authServices'])
 							app.usermobile=data.data.mobile;
 							app.userfirstname=data.data.firstname;
 							app.userlastname=data.data.lastname;
+							app.isAdmin=data.data.isAdmin;
+							app.S_id=data.data.S_id;
 							app.loadme=true; 
 						});
 					  
 					}
+					
 					else
 					{
 						console.log('Failure :User is Not logged in .');
@@ -42,16 +45,29 @@ angular.module('mainControllers',['authServices'])
 			
 					Auth.login(app.loginData).then(function(data) 
 					{
-
-				         console.log(data.data.success);
+						console.log(data);
+						console.log(data);
+				         console.log(data.data);
 				         console.log(data.data.message);
 				         if(data.data.success)
 				         {
-				         		app.loading=false;
-				              	app.successMsg=data.data.message+'...Redirecting';
-				              	$timeout(function(){$location.path('/dashboard');
-				             	window.location.reload(true);
-				              	app.successMsg=false;},3000);
+							if(data.data.message=='admin1@gmail.com'||data.data.message=='admin2@gmail.com'||data.data.message=='admin3@gmail.com')
+							{
+							   app.loading=false;
+							   app.successMsg='Redirecting....';
+							   $timeout(function(){$location.path('/dashboard');
+							  window.location.reload(true);
+							   app.successMsg=false;},3000);
+						   
+							}
+							else{
+							   app.loading=false;
+							   app.successMsg='Redirecting....';
+							   $timeout(function(){$location.path('/userDashboard');
+							  window.location.reload(true);
+							   app.successMsg=false;},3000);
+						   
+							}
 				         } 
 				         else
 				         {

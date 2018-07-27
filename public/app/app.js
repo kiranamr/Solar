@@ -1,4 +1,5 @@
-angular.module('userApp',['appRoutes','ngTable','ui.bootstrap',
+angular.module('userApp',['appRoutes','ngTable','ui.bootstrap','ui.grid',
+'ui.grid.exporter', 'ui.grid.pagination', 'ui.grid.selection',
 	         			  'userControllers',
 	         			  'userServices',
 	         			  'reportControllers',
@@ -10,7 +11,7 @@ angular.module('userApp',['appRoutes','ngTable','ui.bootstrap',
 	         			  'solarServices',
 	         			  'solardataControllers',
 	         			  'solarDataServices',
-	         			  'dashboardControllers','aboutControllers'
+	         			  'dashboardControllers','aboutControllers','UserDashboardControllers','UserSingleControllers','UserReportControllers'
 	         			  ])
 .config(function($httpProvider)
 {

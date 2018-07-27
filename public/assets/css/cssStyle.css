@@ -1,4 +1,4 @@
-<style >
+
 div{
   color: green;
   line-height: 12px;
@@ -7,14 +7,15 @@ div{
 
 
   th{
-    border: 0.5px solid grey;
+    border: 0.5px solid #FFFFFF;
   border-collapse: collapse;
       background-color: #819FF7;
        color:black ;
       
     text-align: center;
-    font-size: 100%;
+    font-size: 10.5px;
     padding: 8px;
+    font-weight: 800;
 
 
     }
@@ -196,28 +197,80 @@ div{
     border: 0.5px solid #ddd;
       
     }
-
+    .color-green {
+     
+    
+ 
+      background-color: rgb(57, 197, 57);
+      
+      
+    }
+    
+    .color-blue {
+      color: blue;
+    }
+    
+    .color-red {
+      background-color: rgb(252, 51, 36);
+    }
   td  {
-  border: 0.5px solid grey;
+  border: 0.5px solid white;
   border-collapse: collapse;
   text-align: center;
-   
+   color: black;
    font-size: 100%;
-  padding: 8px;
+   
+  padding: 5px;
 }
 chart-container{
   width: 100%;
 }
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+ 
+}
 
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+  width: 100px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
 body{
   background-color: #FFFFFF;
 }
 
 table tr:nth-child(odd) {
-  background-color: #F5D0A9;
+  background-color: rgb(214, 216, 216);
 }
 table tr:nth-child(even) {
-  background-color: #ffffff;
+  background-color: hsl(216, 24%, 96%);
 }
 .footer_pic img
 {
@@ -246,21 +299,57 @@ table tr:nth-child(even) {
 {
     height: auto;
     display: inline-block;
-    float: left;
+  
 }
+.dropbtn {
+  background-color:#FFFFFF;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  width: 30px;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+
 
   .navbar{
    
     top: 0;
     width: 100%;
-min-height: 3px;
-    background-color: #0B4C5F;
+min-height: 0px;
+    background-color: #FFFFFF;
 }
   .jumbotron{
     width: 100%;
     height: 50%
 
   }
+  
  p{
    text-align: justify;
     text-justify: inter-word;
@@ -298,7 +387,7 @@ min-height: 3px;
     margin-left: 0px;
 }
 @media screen and (max-width: 300px) {
-table {width:100%;}
+table {width:80%;}
 
 .dropdown{
   background-color: white;
@@ -397,9 +486,7 @@ table {width:100%;}
     color: blue;
     
 }
-.sidenav a:hover, .offcanvas a:focus{
-    
-}
+
 
 .sidenav .closebtn {
     position: absolute;
@@ -488,8 +575,8 @@ main {
 .w3-bar-block .w3-bar-item{width:100%;display:block;padding:8px 16px;text-align:left;border:none;outline:none;white-space:normal;float:none}
 .w3-bar-block.w3-center .w3-bar-item{text-align:center}.w3-block{display:block;width:100%}
 
-.w3-sidebar{height:71%;width:20%;background-color:#fff;position:absolute;!important;z-index:1;overflow:auto}
-.w3-sidebar.w3-collapse{display:block!important}}
+.w3-sidebar{height:71%;width:20%;background-color:#fff;position:absolute;z-index:1;overflow:auto}
+.w3-sidebar.w3-collapse{display:block!important}
 @media (max-width:768px){.w3-modal-content{width:500px}.w3-modal{padding-top:50px}}
 @media (min-width:993px){.w3-modal-content{width:900px}.w3-hide-large{display:none!important}.w3-sidebar.w3-collapse{display:block!important}}
 @media (max-width:992px) and (min-width:601px){.w3-hide-medium{display:none!important}}
@@ -651,4 +738,3 @@ main {
     color: rgb(12, 97, 33);
 }
 
-</style>

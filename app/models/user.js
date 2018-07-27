@@ -19,7 +19,9 @@ var UserSchema=new Schema({
 							
 							password:{type:String,required:true},
 							email:{type:String,required:true,lowercase:true,unique:true,validate:emailValidator},
-						   mobile:{type:String,required:true,unique:true}
+						   mobile:{type:String,required:true,unique:true},
+						   S_id:{type:String,required:true,unique:true},
+						   isAdmin: {type: Boolean, default: false}
 						 }); 
 
 	UserSchema.pre('save',function(next)

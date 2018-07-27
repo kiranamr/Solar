@@ -1,0 +1,139 @@
+<div class="container" style="height: 100%;">
+        <div >
+           <br>
+         <br>
+         <form ng-submit="reportUser.SearchUserTag(SearchUserSolarData);" >
+                <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"> <div class="text-center">
+                                <b style="color:#1b154a; font-size: 16px"> Device Name : </b> 
+                                <select style="width: 144px;height: 26px;" ng-model="reportUser.SearchUserSolarData.selectedUserId"    >
+                                       <option value="" selected="selected">Select Id</option>
+                                        <option>{{main.S_id}}</option>
+                                </select>
+                                
+                                <br>
+                                <br>
+                         
+                               <!-- <input type="text" ng-model="Search.SearchSolarData.selectedId"></div> -->
+                                <b style="color:#1b154a; font-size: 16px">From Date &nbsp &nbsp&nbsp: </b><input style="width: 144px;height: 26px;" type="Date" ng-model="reportUser.SearchUserSolarData.selectedUserFromDate">
+                                <br>
+                                <br>
+                         
+                                <b style="color:#1b154a; font-size: 16px">To Date &nbsp &nbsp &nbsp &nbsp &nbsp: </b><input style="width: 144px;height: 26px;" type="date" ng-model="reportUser.SearchUserSolarData.selectedUserToDate">
+                             
+                                   <!-- 	Data Filter: <select ng-model="selectedValues" ng-options="y for y in values">
+                            </select> 
+                                 Data Interval: <select ng-model="selecteInterval" ng-options="z for z in intervals">
+                            </select> -->
+                            <br>
+                            <br>
+                         
+                           <button class="btn btn-primary" type="submit">Search</button>
+                        </div>
+                        <div class="col-md-4"></div>
+                        </div>
+                        </div>
+
+        
+          
+           
+         
+         </form> 
+         
+         <br>
+         <br><br>
+         
+         
+          <div style="overflow-x:auto;overflow-y: hidden; "   >
+          
+                  <center> 
+                                  <div ng-show="solardatas.length !=0">
+                                         
+                                          <table class="export-table" id='mytable' >
+                                           
+                                                 <thead>
+                                                   <tr >
+                                                         <th>Sl NO</th>
+                                                         <th>ID</th>
+                                                         
+                                                         <th>RTU CONNECTIVITY</th>
+                                                         <th>RTU LAST CONNECTED</th>
+                                                         <th>DC VOLT(V)</th>
+                                                         <th>O/P VOLT(V)</th>
+                                                         <th>O/P AMPERE (A)</th>
+                                                         <th>O/P POWER (KW)</th>
+                                                         
+                                                         <th>TOTAL POWER(KW)</th>
+                                                         <th>VFD SPEED(rpm)</th>
+                                                         <th>O/P FREQUENCY(Hz)</th>
+                                                         <th>FLOW RATE(LPM)</th>
+                                                         <th>PUMP RUN HOUR</th>
+                                                         <th>VFD STATUS/ FAULT</th>
+                                                   </tr>
+                                                 </thead>
+         
+                                                   <tbody>
+                                                      
+                                                    <tr style="width: 200px"  ng-repeat="solar in solardatas | orderBy:column:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize |filter : search" > 
+                                                     <td>{{$index +1+(currentPage-1) * pageSize }}</td>
+                                                       <td>{{solar.S_id}}</td>
+                                                       <td ng-if="solar.rtuConnectivity === 'yes'||solar.rtuConnectivity === 'YES'||solar.rtuConnectivity === 'Yes' ||solar.rtuConnectivity === 'on'||solar.rtuConnectivity === 'On' ||solar.rtuConnectivity === 'ON' "><img src="green1.png" width="15" height="15"></td>
+                                                       <td ng-if="solar.rtuConnectivity === 'no'||solar.rtuConnectivity === 'NO'||solar.rtuConnectivity === 'No' ||solar.rtuConnectivity === 'off'||solar.rtuConnectivity === 'Off'||solar.rtuConnectivity === 'OFF'  "><img src="red1.png" width="15" height="15"></td>
+                                                      
+                                                      <!-- <td>{{solar.rtuConnectivity}} </td>-->
+                                                       <td>{{solar.rtuLastConnected}} </td>
+                                                       <td>{{solar.dcVolt}} </td>
+                                                       <td>{{solar.outputVolt}} </td>
+                                                       <td>{{solar.outputAmpere}} </td>
+                                                       <td>{{solar.outputPower}} </td>
+                                                       <td>{{solar.totalPower}} </td>
+                                                       <td>{{solar.vfdSpeed}} </td>
+                                                       <td>{{solar.outputFrequency}} </td>
+                                                       <td>{{solar.flowRate}} </td>
+                                                       <!--<td>{{solar.pumprunHour}} </td>-->
+                                                       <td ng-if="solar.pumprunHour === 'yes' ||solar.pumprunHour === 'Yes' ||solar.pumprunHour === 'YES'||solar.pumprunHour=== 'on'||solar.pumprunHour === 'On'||solar.pumprunHour === 'ON'  "><img src="circle.png" width="15" height="15"></td>
+                                                       <td ng-if="solar.pumprunHour === 'no'||solar.pumprunHour === 'No'||solar.pumprunHour === 'NO'||solar.pumprunHour === 'off'||solar.pumprunHour === 'Off'||solar.pumprunHour === 'OFF' "><img src="red.png" width="15" height="15"></td>  
+                                                      <!-- <td><img src="circle.png" width="10" height="10"> </td>-->
+                                                       <td>{{solar.vfdStatus}} </td>                    
+                                                      
+                                                       </tr>
+                                                   </tbody>
+         
+                                               </table>
+                                              
+                                            </div>
+                                             <div ng-show="solardatas.length ==0" style="height: 205px;">
+                                               <h3 style="color:#1b154a; ">No data to display.</h3>
+                                             </div>
+                                              </center>
+         </div>
+         
+         <center><uib-pagination ng-show="solardatas.length !=0" class="pagination" max-size="10" boundary-links="true" direction-link="true" total-items="solardatas.length" ng-model="currentPage" items-per-page="pageSize"></uib-pagination>
+         </center> 
+         
+         <center><h4 ng-show="solardatas.length !=0" >  Download as <a class="btn btn-primary" target="_self" href="/api/downloads">CSV</a> 
+            or <button class="btn btn-primary" id="btnExportToPDF" ng-click="export();"> PDF</button></h4>
+            </center></div>
+       <br>
+        <br>
+     </div>
+     <script type="text/javascript">
+     $(document).ready(function () {
+         var table = $("#mytable").DataTable({
+     "columnDefs": [{
+         "width": "8%", 
+         "targets": 0
+     }],
+     dom: 'Bfrtip',
+     'bSort': false,
+     bPaginate: false,
+     bFilter: false,
+     bInfo: false,
+     buttons: [
+         'copy', 'excel', 'pdf'
+     ]
+ });
+ });
+ </script>
+      

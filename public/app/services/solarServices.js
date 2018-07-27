@@ -15,7 +15,12 @@ angular.module('solarServices',[])
 					 		return $http.get('/api/solarsUser');
 					 		
 					 };
-
+					 solarFactory.getUserDashboard=function()
+					 {
+					 		return $http.get('/api/solarsUserDashboard');
+					 		
+					 };
+					
 					
 					solarFactory.SolarAll=function(addSolarAll)
 					{
