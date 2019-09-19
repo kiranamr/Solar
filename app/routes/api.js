@@ -1,6 +1,8 @@
 var User=require('../models/user');
 var json2xls=require('json2xls');
 var Solar=require('../models/soalr');
+
+var Sensor=require('../models/SensorValueData')
 var SolarData=require('../models/solardatas');
 var Admin=require('../models/admin');
 var server= require('http');
@@ -165,77 +167,120 @@ module.exports=function(router)
 								
 								
 							});
-						router.post('/solarsUserdata',function(req,res)
+						router.post('/Sensorvalues',function(req,res)
 						{   //var solartable=new models.Solar();
-							var solardatatable=new SolarData();
+							var solardatatable=new Sensor();
 							solardatatable.S_id=req.body.S_id;
 							//solardatatable.Customer=req.body.Customer;
 							var date=new Date();
-							var monthNames = [
-								"Jan", "Feb", "Mar",
-								"Apr", "May", "Jun", "Jul",
-								"Aug", "Sep", "Oct",
-								"Nov", "Dec"
-							  ];
-							  var day = date.getDate();
-							  var monthIndex = date.getMonth();
-							  var year = date.getFullYear();
-							  var hour=date.getHours();
-							  var minute=date.getMinutes();
-							solardatatable.rtuConnectivity=req.body.rtuConnectivity;
-							solardatatable.rtuLastConnected=day + '-' + monthNames[monthIndex] + '-' + year+' '+hour+':'+minute;
-							solardatatable.dcVolt=req.body.dcVolt;
-							solardatatable.outputVolt=req.body.outputVolt;
-							solardatatable.outputAmpere=req.body.outputAmpere;
-							solardatatable.outputPower=req.body.outputPower;
-							solardatatable.totalPower=req.body.totalPower;
-							solardatatable.vfdSpeed=req.body.vfdSpeed;
-							solardatatable.outputFrequency=req.body.outputFrequency;
-							solardatatable.flowRate=req.body.flowRate;
-							//solardatatable.onTime=req.body.onTime;
-							solardatatable.pumprunHour=req.body.pumprunHour;
-							solardatatable.vfdStatus=req.body.vfdStatus;
+						     solardatatable.Moisture=req.body.Moisture;
+							solardatatable.Temperature=req.body.Temperature;
+							solardatatable.TimeStamp=date;
+							solardatatable.Parameter1=req.body.Parameter1;
+							solardatatable.Parameter2=req.body.Parameter2;
+							solardatatable.Parameter3=req.body.Parameter3;
+							solardatatable.Parameter4=req.body.Parameter4;
+							solardatatable.Parameter5=req.body.Parameter5;
+							solardatatable.Parameter6=req.body.Parameter6;
+							solardatatable.DigitalAnalog=req.body.DigitalAnalog;
 							
-								Solar.findOne({S_id:req.body.S_id},function(err,solars)
-								{
-					         		if(err) throw err;
-
-					            		if (!solars){
-					                    				res.json({ success: false, message: 'No customers id or name was found' }); // Return an error
-					                				}
-					                				 else 
-					                			 	{
-														Solar.update({'S_id':req.body.S_id}, {$set:
-															 {
-															rtuConnectivity:req.body.rtuConnectivity,
-															rtuLastConnected:day + '-' + monthNames[monthIndex] + '-' + year+' '+hour+':'+minute,
-															dcVolt:req.body.dcVolt,
-															outputVolt:req.body.outputVolt,
-															outputAmpere:req.body.outputAmpere,
-															outputPower:req.body.outputPower,
-															totalPower:req.body.totalPower,
-															vfdSpeed:req.body.vfdSpeed,
-															outputFrequency:req.body.outputFrequency,
-															flowRate:req.body.flowRate,
-															pumprunHour:req.body.pumprunHour,
-															vfdStatus:req.body.vfdStatus}}, {w:1}, function(err, result){
-															console.log(result);});
+							
 					                    				solardatatable.save(function(err)
 														{
 
 															if (err) throw err;
-															return res.json({success:true, message:'Solar data created !'});
+															return res.json({success:true, message:'Sensor value inseted !'});
 																					
 							
 													     });
-					                				}
+					                				
 
-								});	
-
+							
 							
 								
 							});
 
+							router.get('/Sensorvalues',function(req,res)
+					{
+							// get all the users
+							console.log('I recived a get request');
+							Sensor.find(function(err,sensordatas) {	 
+																			if (err)
+																	  		res.send(err );
+																	  	 	res.json(sensordatas);
+																	}); 
+					});
+							router.post('/solarsUserdata',function(req,res)
+							{   //var solartable=new models.Solar();
+								var solardatatable=new SolarData();
+								solardatatable.S_id=req.body.S_id;
+								//solardatatable.Customer=req.body.Customer;
+								var date=new Date();
+								var monthNames = [
+									"Jan", "Feb", "Mar",
+									"Apr", "May", "Jun", "Jul",
+									"Aug", "Sep", "Oct",
+									"Nov", "Dec"
+								  ];
+								  var day = date.getDate();
+								  var monthIndex = date.getMonth();
+								  var year = date.getFullYear();
+								  var hour=date.getHours();
+								  var minute=date.getMinutes();
+								solardatatable.rtuConnectivity=req.body.rtuConnectivity;
+								solardatatable.rtuLastConnected=day + '-' + monthNames[monthIndex] + '-' + year+' '+hour+':'+minute;
+								solardatatable.dcVolt=req.body.dcVolt;
+								solardatatable.outputVolt=req.body.outputVolt;
+								solardatatable.outputAmpere=req.body.outputAmpere;
+								solardatatable.outputPower=req.body.outputPower;
+								solardatatable.totalPower=req.body.totalPower;
+								solardatatable.vfdSpeed=req.body.vfdSpeed;
+								solardatatable.outputFrequency=req.body.outputFrequency;
+								solardatatable.flowRate=req.body.flowRate;
+								//solardatatable.onTime=req.body.onTime;
+								solardatatable.pumprunHour=req.body.pumprunHour;
+								solardatatable.vfdStatus=req.body.vfdStatus;
+								
+									Solar.findOne({S_id:req.body.S_id},function(err,solars)
+									{
+										 if(err) throw err;
+	
+											if (!solars){
+															res.json({ success: false, message: 'No customers id or name was found' }); // Return an error
+														}
+														 else 
+														 {
+															Solar.update({'S_id':req.body.S_id}, {$set:
+																 {
+																rtuConnectivity:req.body.rtuConnectivity,
+																rtuLastConnected:day + '-' + monthNames[monthIndex] + '-' + year+' '+hour+':'+minute,
+																dcVolt:req.body.dcVolt,
+																outputVolt:req.body.outputVolt,
+																outputAmpere:req.body.outputAmpere,
+																outputPower:req.body.outputPower,
+																totalPower:req.body.totalPower,
+																vfdSpeed:req.body.vfdSpeed,
+																outputFrequency:req.body.outputFrequency,
+																flowRate:req.body.flowRate,
+																pumprunHour:req.body.pumprunHour,
+																vfdStatus:req.body.vfdStatus}}, {w:1}, function(err, result){
+																console.log(result);});
+															solardatatable.save(function(err)
+															{
+	
+																if (err) throw err;
+																return res.json({success:true, message:'Solar data created !'});
+																						
+								
+															 });
+														}
+	
+									});	
+	
+								
+									
+								});
+	
                      router.delete('/manage/:id',function(req,res)
                      {
 	     						var deleteUser=req.params.id;
