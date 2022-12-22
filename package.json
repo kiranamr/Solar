@@ -23,7 +23,7 @@
     "html-to-pdf": "^0.1.11",
     "json2csv": "^3.11.5",
     "json2xls": "^0.1.2",
-    "jsonwebtoken": "^8.1.0",
+    "jsonwebtoken": "^9.0.0",
     "jspdf": "^1.4.1",
     "jspdf-autotable": "^2.3.4",
     "mongo-xlsx": "^1.0.12",
