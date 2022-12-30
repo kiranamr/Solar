@@ -21,7 +21,7 @@
     "html": "^1.0.0",
     "html-pdf": "^2.2.0",
     "html-to-pdf": "^0.1.11",
-    "json2csv": "^3.11.5",
+    "json2csv": "^5.0.7",
     "json2xls": "^0.1.2",
     "jsonwebtoken": "^8.1.0",
     "jspdf": "^1.4.1",
